@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { CulturePoint } from '@/data/points';
+import { hunanBoundary } from '@/data/hunan-boundary';
 import { Plus, Minus, Locate, Layers } from 'lucide-react';
 
 interface HunanMapProps {
@@ -11,8 +12,14 @@ interface HunanMapProps {
   visibleLayers: { ancient: boolean; modern: boolean; red: boolean };
 }
 
-const HUNAN_CENTER: [number, number] = [27.8, 111.5];
-const HUNAN_ZOOM = 7.2;
+const HUNAN_CENTER: [number, number] = [27.4, 111.7];
+const HUNAN_ZOOM = 7.4;
+
+// Restrict panning to roughly Hunan + small buffer
+const HUNAN_BOUNDS: [[number, number], [number, number]] = [
+  [24.5, 108.5], // SW corner
+  [30.5, 114.5], // NE corner
+];
 
 const categoryColors: Record<string, string> = {
   ancient: '#8B6914',
@@ -40,8 +47,10 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
       zoom: HUNAN_ZOOM,
       zoomControl: false,
       attributionControl: false,
-      minZoom: 6,
+      minZoom: 7,
       maxZoom: 14,
+      maxBounds: L.latLngBounds(HUNAN_BOUNDS),
+      maxBoundsViscosity: 0.8,
     });
 
     // Use Tianditu (天地图) vector tiles for cleaner Chinese map
@@ -59,6 +68,51 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
     markersRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
     setMapReady(true);
+
+    // Add Hunan province boundary with outside mask
+    try {
+      // Create a large rectangle covering the world
+      const worldBounds: [number, number][] = [
+        [-90, -180], [-90, 180], [90, 180], [90, -180], [-90, -180]
+      ];
+
+      // Extract Hunan boundary coordinates (reverse winding for hole)
+      const hunanCoords = (hunanBoundary as any).features[0].geometry.coordinates;
+      const hunanRings: [number, number][][] = [];
+      hunanCoords.forEach((polygon: number[][][]) => {
+        polygon.forEach((ring: number[][]) => {
+          hunanRings.push(ring.map((coord: number[]) => [coord[1], coord[0]] as [number, number]));
+        });
+      });
+
+      // Create mask polygon (world minus Hunan = semi-transparent overlay outside Hunan)
+      const maskCoords: L.LatLngExpression[][] = [
+        worldBounds.map(c => [c[0], c[1]] as [number, number]),
+        ...hunanRings
+      ];
+
+      L.polygon(maskCoords, {
+        fillColor: '#f5f0e8',
+        fillOpacity: 0.82,
+        stroke: false,
+        interactive: false,
+      }).addTo(map);
+
+      // Add Hunan border outline
+      L.geoJSON(hunanBoundary as any, {
+        style: {
+          color: '#8B6914',
+          weight: 2,
+          opacity: 0.5,
+          fillColor: 'transparent',
+          fillOpacity: 0,
+          dashArray: '6,3',
+        },
+        interactive: false,
+      }).addTo(map);
+    } catch (e) {
+      console.warn('Failed to add Hunan boundary:', e);
+    }
 
     // Force a resize after mount to ensure proper rendering
     setTimeout(() => map.invalidateSize(), 100);
@@ -151,7 +205,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
   const handleZoomIn = () => mapRef.current?.zoomIn();
   const handleZoomOut = () => mapRef.current?.zoomOut();
   const handleReset = () => {
-    mapRef.current?.flyTo(HUNAN_CENTER, HUNAN_ZOOM, { duration: 0.8 });
+    mapRef.current?.flyTo(HUNAN_CENTER, HUNAN_ZOOM, { duration: 0.6 });
   };
 
   return (

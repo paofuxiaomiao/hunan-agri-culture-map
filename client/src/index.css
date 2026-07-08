@@ -278,6 +278,5 @@
   inset: 0;
   z-index: 399;
   background:
-    radial-gradient(ellipse at center, transparent 40%, rgba(245, 240, 232, 0.3) 100%);
-  mix-blend-mode: multiply;
+    radial-gradient(ellipse 55% 62% at 48% 46%, transparent 25%, rgba(245, 240, 232, 0.4) 45%, rgba(245, 240, 232, 0.75) 60%, rgba(245, 240, 232, 0.95) 78%, rgba(245, 240, 232, 1) 100%);
 }
