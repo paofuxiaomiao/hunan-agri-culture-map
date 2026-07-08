@@ -1,40 +1,29 @@
 export default function Footer() {
   return (
-    <footer className="w-full flex-shrink-0 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #f0e8d4 0%, #e8dcc4 100%)' }}>
-      {/* Mountain silhouette decorative background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <img 
-          src="/manus-storage/bottom-mountain-decor_f399058f.png" 
-          alt="" 
-          className="absolute bottom-0 left-0 w-full h-full object-cover object-bottom opacity-[0.18]"
-          style={{ mixBlendMode: 'multiply' }}
-        />
-      </div>
+    <footer className="w-full flex-shrink-0 relative overflow-hidden" style={{ background: '#2d4a3e' }}>
+      {/* Subtle texture pattern overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.08]" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c2 8 8 14 16 16-8 2-14 8-16 16-2-8-8-14-16-16 8-2 14-8 16-16z' fill='%23ffffff' fill-opacity='0.4'/%3E%3C/svg%3E")`,
+        backgroundSize: '60px 60px'
+      }} />
       
-      {/* Red decorative top border */}
-      <div className="w-full h-[3px] relative z-10" style={{ background: 'linear-gradient(90deg, transparent 5%, #C41E3A 20%, #C41E3A 80%, transparent 95%)' }} />
-      
-      <div className="py-3 text-center space-y-1.5 relative z-10">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[12px] text-earth/90">
-          <span><strong className="text-earth">主办单位：</strong>湖南省文化和旅游厅</span>
-          <span>湖南省农业农村厅</span>
-          <span><strong className="text-earth">技术支持：</strong>湖南省地理信息院</span>
+      <div className="py-3 text-center space-y-1 relative z-10">
+        {/* Mountain/landscape icon */}
+        <div className="flex items-center justify-center mb-1">
+          <svg width="40" height="22" viewBox="0 0 40 22" fill="none" className="opacity-60">
+            <path d="M0 22 L10 8 L15 14 L20 4 L28 16 L33 10 L40 22 Z" fill="#5a8a7a" opacity="0.5"/>
+            <path d="M5 22 L15 10 L20 15 L27 6 L35 18 L40 22 Z" fill="#4a7a6a" opacity="0.4"/>
+            <ellipse cx="20" cy="3" rx="6" ry="2" fill="#7aaa9a" opacity="0.3"/>
+          </svg>
         </div>
-        <div className="flex items-center justify-center gap-5 text-[11px] text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
-              <path d="M6 3v3l2 1" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-            </svg>
-            湘ICP备 2024012345号-1
-          </span>
-          <span className="flex items-center gap-1.5">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <circle cx="6" cy="6" r="5" stroke="#C41E3A" strokeWidth="1" fill="#C41E3A" fillOpacity="0.15"/>
-              <circle cx="6" cy="6" r="2" fill="#C41E3A" fillOpacity="0.6"/>
-            </svg>
-            湘公网安备 43011102000123号
-          </span>
+        
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[12px] text-white/80">
+          <span><strong className="text-white/95">主办单位：</strong>湖南省自然资源厅</span>
+          <span><strong className="text-white/95">承办单位：</strong>湖南省第三测绘院</span>
+        </div>
+        <div className="flex items-center justify-center gap-5 text-[11px] text-white/55">
+          <span>甲测资字43100424</span>
+          <span>湘ICP备2021016353号-3</span>
         </div>
       </div>
     </footer>
