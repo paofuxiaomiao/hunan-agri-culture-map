@@ -12,7 +12,7 @@ interface HunanMapProps {
 }
 
 const HUNAN_CENTER: [number, number] = [27.8, 111.5];
-const HUNAN_ZOOM = 7.5;
+const HUNAN_ZOOM = 7.2;
 
 const categoryColors: Record<string, string> = {
   ancient: '#8B6914',
@@ -25,6 +25,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
   const [mapReady, setMapReady] = useState(false);
+  const isFirstRender = useRef(true);
 
   // Stable callback ref
   const onPointSelectRef = useRef(onPointSelect);
@@ -43,8 +44,8 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
       maxZoom: 14,
     });
 
-    // Use Gaode (Amap) tiles for Chinese labels with warm styling
-    L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+    // Use Tianditu (天地图) vector tiles for cleaner Chinese map
+    L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}', {
       subdomains: '1234',
       maxZoom: 19,
     }).addTo(map);
@@ -52,7 +53,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
     // Apply warm sepia filter to tiles
     const tilePane = map.getPane('tilePane');
     if (tilePane) {
-      tilePane.style.filter = 'sepia(20%) saturate(85%) brightness(106%) hue-rotate(-3deg) contrast(92%)';
+      tilePane.style.filter = 'sepia(30%) saturate(70%) brightness(108%) hue-rotate(-5deg) contrast(88%)';
     }
 
     markersRef.current = L.layerGroup().addTo(map);
@@ -137,7 +138,12 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
   // Fly to selected point
   useEffect(() => {
     if (!mapRef.current || !selectedPoint) return;
-    mapRef.current.flyTo([selectedPoint.latitude, selectedPoint.longitude], 8.5, {
+    // Skip flyTo on first render (initial default selection)
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    mapRef.current.flyTo([selectedPoint.latitude, selectedPoint.longitude], 9, {
       duration: 0.8,
     });
   }, [selectedPoint]);

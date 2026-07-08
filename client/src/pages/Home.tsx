@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 
 export default function Home() {
   const [activeNav, setActiveNav] = useState('map');
-  const [selectedPoint, setSelectedPoint] = useState<CulturePoint | null>(null);
+  const [selectedPoint, setSelectedPoint] = useState<CulturePoint | null>(culturePoints[0]);
   const [visibleLayers, setVisibleLayers] = useState({
     ancient: true,
     modern: true,
@@ -69,7 +69,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="h-screen flex flex-col bg-background overflow-hidden">
       <Header
         activeNav={activeNav}
         onNavChange={handleNavChange}
@@ -77,7 +77,7 @@ export default function Home() {
       />
 
       {/* Main map area */}
-      <main className="relative" style={{ height: 'calc(100vh - 92px)', minHeight: '500px' }}>
+      <main className="relative flex-1 min-h-0">
         <HunanMap
           points={filteredPoints}
           selectedPoint={selectedPoint}

@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
-    <footer className="w-full py-4 border-t-2 border-red/20" style={{ background: 'linear-gradient(180deg, #faf7f2 0%, #f5f0e8 100%)' }}>
-      <div className="text-center space-y-1.5">
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-earth/80">
+    <footer className="w-full py-2.5 flex-shrink-0 border-t-2 border-red/20" style={{ background: 'linear-gradient(180deg, #faf7f2 0%, #f5f0e8 100%)' }}>
+      <div className="text-center space-y-1">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[11px] text-earth/80">
           <span><strong className="text-earth">主办单位：</strong>湖南省文化和旅游厅</span>
           <span>湖南省农业农村厅</span>
           <span><strong className="text-earth">技术支持：</strong>湖南省地理信息院</span>
