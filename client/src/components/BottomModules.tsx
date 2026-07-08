@@ -1,7 +1,11 @@
 import { ChevronRight } from 'lucide-react';
 import { themeRoutes, timelineEvents, solarTerms, artifacts } from '@/data/points';
 
-export default function BottomModules() {
+interface BottomModulesProps {
+  onNavigate?: (nav: string) => void;
+}
+
+export default function BottomModules({ onNavigate }: BottomModulesProps) {
   return (
     <div className="w-full border-t border-gold/15 flex-shrink-0" style={{ background: 'linear-gradient(180deg, #faf8f2 0%, #f6f1e8 100%)' }}>
       {/* Gold thread divider */}
@@ -14,7 +18,7 @@ export default function BottomModules() {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11c2-3 6-5 8-8" stroke="#8B6914" strokeWidth="1.2" strokeLinecap="round"/><circle cx="3" cy="11" r="1.2" fill="#8B6914" fillOpacity="0.4"/><circle cx="11" cy="3" r="1.2" fill="#8B6914" fillOpacity="0.4"/></svg>
               主题线路
             </h3>
-            <button className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
+            <button onClick={() => onNavigate?.('routes')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
               更多线路 <ChevronRight size={11} />
             </button>
           </div>
@@ -42,7 +46,7 @@ export default function BottomModules() {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="1" stroke="#8B6914" strokeWidth="1.1" fill="none"/><path d="M5 5h4M5 7h3M5 9h2" stroke="#8B6914" strokeWidth="0.9" strokeLinecap="round"/></svg>
               湖湘农耕文化发展脉络
             </h3>
-            <button className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
+            <button onClick={() => onNavigate?.('timeline')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
               查看完整脉络 <ChevronRight size={11} />
             </button>
           </div>
@@ -73,7 +77,7 @@ export default function BottomModules() {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 12V6M4 8c0-3 1.5-5 3-6 1.5 1 3 3 3 6-1.5 1-4.5 1-6 0z" stroke="#4A7C59" strokeWidth="1.1" fill="#4A7C59" fillOpacity="0.1"/></svg>
               二十四节气
             </h3>
-            <button className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
+            <button onClick={() => onNavigate?.('solar')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
               查看全部 <ChevronRight size={11} />
             </button>
           </div>
@@ -96,7 +100,7 @@ export default function BottomModules() {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 12h6M5 12V8c0-1 .5-2 2-2s2 1 2 2v4M4 4c0-1.5 1.3-2.5 3-2.5s3 1 3 2.5c0 1-1 1.5-3 1.5S4 5 4 4z" stroke="#8B6914" strokeWidth="1" fill="none"/></svg>
               重要文物
             </h3>
-            <button className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
+            <button onClick={() => onNavigate?.('artifacts')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors font-serif">
               查看更多 <ChevronRight size={11} />
             </button>
           </div>

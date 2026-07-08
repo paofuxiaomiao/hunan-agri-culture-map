@@ -7,6 +7,11 @@ import BottomModules from '@/components/BottomModules';
 import Footer from '@/components/Footer';
 import { culturePoints, CulturePoint } from '@/data/points';
 import { toast } from 'sonner';
+import ArtifactsPage from './ArtifactsPage';
+import TimelinePage from './TimelinePage';
+import RoutesPage from './RoutesPage';
+import SolarTermsPage from './SolarTermsPage';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Home() {
   const [activeNav, setActiveNav] = useState('map');
@@ -63,9 +68,10 @@ export default function Home() {
 
   const handleNavChange = useCallback((nav: string) => {
     setActiveNav(nav);
-    if (nav !== 'map') {
-      toast('功能开发中', { description: `${nav === 'routes' ? '主题线路' : nav === 'timeline' ? '发展脉络' : nav === 'artifacts' ? '重要文物' : '节气日历'}页面即将上线` });
-    }
+  }, []);
+
+  const handleBackToMap = useCallback(() => {
+    setActiveNav('map');
   }, []);
 
   return (
@@ -76,35 +82,100 @@ export default function Home() {
         onSearch={handleSearch}
       />
 
-      {/* Main map area */}
-      <main className="relative flex-1 min-h-0">
-        <HunanMap
-          points={filteredPoints}
-          selectedPoint={selectedPoint}
-          onPointSelect={handlePointSelect}
-          visibleLayers={visibleLayers}
-        />
+      <AnimatePresence mode="wait">
+        {activeNav === 'map' && (
+          <motion.div
+            key="map"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="flex-1 flex flex-col min-h-0 overflow-hidden"
+          >
+            {/* Main map area */}
+            <main className="relative flex-1 min-h-0">
+              <HunanMap
+                points={filteredPoints}
+                selectedPoint={selectedPoint}
+                onPointSelect={handlePointSelect}
+                visibleLayers={visibleLayers}
+              />
 
-        <LayerPanel
-          visibleLayers={visibleLayers}
-          onLayerToggle={handleLayerToggle}
-          onSearch={handleSearch}
-          onClear={handleClear}
-        />
+              <LayerPanel
+                visibleLayers={visibleLayers}
+                onLayerToggle={handleLayerToggle}
+                onSearch={handleSearch}
+                onClear={handleClear}
+              />
 
-        <PointDetail
-          point={selectedPoint}
-          onClose={() => setSelectedPoint(null)}
-          onPrev={handlePrevPoint}
-          onNext={handleNextPoint}
-        />
-      </main>
+              <PointDetail
+                point={selectedPoint}
+                onClose={() => setSelectedPoint(null)}
+                onPrev={handlePrevPoint}
+                onNext={handleNextPoint}
+              />
+            </main>
 
-      {/* Bottom content modules */}
-      <BottomModules />
+            {/* Bottom content modules */}
+            <BottomModules onNavigate={handleNavChange} />
 
-      {/* Footer */}
-      <Footer />
+            {/* Footer */}
+            <Footer />
+          </motion.div>
+        )}
+
+        {activeNav === 'artifacts' && (
+          <motion.div
+            key="artifacts"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            className="flex-1 overflow-y-auto"
+          >
+            <ArtifactsPage onBack={handleBackToMap} />
+          </motion.div>
+        )}
+
+        {activeNav === 'timeline' && (
+          <motion.div
+            key="timeline"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            className="flex-1 overflow-y-auto"
+          >
+            <TimelinePage onBack={handleBackToMap} />
+          </motion.div>
+        )}
+
+        {activeNav === 'routes' && (
+          <motion.div
+            key="routes"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            className="flex-1 overflow-y-auto"
+          >
+            <RoutesPage onBack={handleBackToMap} />
+          </motion.div>
+        )}
+
+        {activeNav === 'solar' && (
+          <motion.div
+            key="solar"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            className="flex-1 overflow-y-auto"
+          >
+            <SolarTermsPage onBack={handleBackToMap} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
