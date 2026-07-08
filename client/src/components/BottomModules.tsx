@@ -27,21 +27,23 @@ const solarTermIcons: Record<string, string> = {
   'st08': '/manus-storage/solar-icon-xiaoman_34e4cc05.png',
 };
 
+// Rice icon for headlines
+const RICE_ICON = '/manus-storage/rice-icon-headline_5ef18957.png';
+
 export default function BottomModules({ onNavigate }: BottomModulesProps) {
   return (
-    <div className="w-full flex-shrink-0 relative" style={{ background: 'linear-gradient(180deg, #faf8f2 0%, #f3ead6 100%)' }}>
+    <div className="w-full flex-shrink-0 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #faf8f2 0%, #f0e8d4 100%)' }}>
       {/* Top gold thread divider */}
       <div className="gold-thread" />
       
-      {/* Decorative wheat/grain background overlay */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.04]">
-        <svg className="absolute right-0 bottom-0 w-[400px] h-[180px]" viewBox="0 0 400 180" fill="none">
-          <path d="M350 170 C320 130, 280 110, 250 90 C220 70, 200 55, 180 45" stroke="#8B6914" strokeWidth="2" fill="none"/>
-          <ellipse cx="238" cy="60" rx="4" ry="8" fill="#8B6914" opacity="0.4"/>
-          <ellipse cx="265" cy="65" rx="4" ry="8" fill="#8B6914" opacity="0.4"/>
-          <path d="M380 175 C360 150, 340 130, 310 110" stroke="#8B6914" strokeWidth="1.5" fill="none"/>
-          <ellipse cx="310" cy="105" rx="3" ry="7" fill="#8B6914" opacity="0.3"/>
-        </svg>
+      {/* Mountain/field decorative background layer */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img 
+          src="/manus-storage/bottom-field-decor_de0c4d2f.png" 
+          alt="" 
+          className="absolute bottom-0 left-0 w-full h-full object-cover object-bottom opacity-[0.12]"
+          style={{ mixBlendMode: 'multiply' }}
+        />
       </div>
 
       <div className="grid grid-cols-12 gap-0 relative z-10" style={{ height: '175px' }}>
@@ -49,12 +51,8 @@ export default function BottomModules({ onNavigate }: BottomModulesProps) {
         {/* Theme Routes - 3 cols */}
         <div className="col-span-3 px-3 py-2.5 border-r border-gold/15 overflow-hidden">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-[13px] font-bold font-serif flex items-center gap-1.5" style={{ color: '#3d2e0a' }}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 13c3-4 7-6 10-10" stroke="#8B6914" strokeWidth="1.5" strokeLinecap="round"/>
-                <circle cx="3" cy="13" r="1.8" fill="#8B6914" fillOpacity="0.5"/>
-                <circle cx="13" cy="3" r="1.8" fill="#8B6914" fillOpacity="0.5"/>
-              </svg>
+            <h3 className="text-[13px] font-bold font-serif flex items-center gap-1" style={{ color: '#3d2e0a' }}>
+              <img src={RICE_ICON} alt="" className="w-4 h-4 object-contain opacity-80" />
               主题线路
             </h3>
             <button onClick={() => onNavigate?.('routes')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors">
@@ -77,11 +75,8 @@ export default function BottomModules({ onNavigate }: BottomModulesProps) {
         {/* Timeline - 3 cols: AI-generated refined icons */}
         <div className="col-span-3 px-3 py-2.5 border-r border-gold/15 overflow-hidden">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-[13px] font-bold font-serif flex items-center gap-1.5" style={{ color: '#3d2e0a' }}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <rect x="2" y="2" width="12" height="12" rx="1.5" stroke="#8B6914" strokeWidth="1.2" fill="none"/>
-                <path d="M5 5.5h6M5 8h5M5 10.5h3" stroke="#8B6914" strokeWidth="0.9" strokeLinecap="round"/>
-              </svg>
+            <h3 className="text-[13px] font-bold font-serif flex items-center gap-1" style={{ color: '#3d2e0a' }}>
+              <img src={RICE_ICON} alt="" className="w-4 h-4 object-contain opacity-80" />
               湖湘农耕文化发展脉络
             </h3>
             <button onClick={() => onNavigate?.('timeline')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors">
@@ -109,7 +104,8 @@ export default function BottomModules({ onNavigate }: BottomModulesProps) {
         {/* Solar Terms - 2 cols: AI-generated refined icons */}
         <div className="col-span-2 px-2.5 py-2.5 border-r border-gold/15 overflow-hidden">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-[13px] font-bold font-serif" style={{ color: '#3d2e0a' }}>
+            <h3 className="text-[13px] font-bold font-serif flex items-center gap-1" style={{ color: '#3d2e0a' }}>
+              <img src={RICE_ICON} alt="" className="w-4 h-4 object-contain opacity-80" />
               二十四节气
             </h3>
             <button onClick={() => onNavigate?.('solar')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors">
@@ -135,7 +131,8 @@ export default function BottomModules({ onNavigate }: BottomModulesProps) {
         {/* Artifacts - 4 cols: single row of larger images */}
         <div className="col-span-4 px-3 py-2.5 overflow-hidden">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-[13px] font-bold font-serif" style={{ color: '#3d2e0a' }}>
+            <h3 className="text-[13px] font-bold font-serif flex items-center gap-1" style={{ color: '#3d2e0a' }}>
+              <img src={RICE_ICON} alt="" className="w-4 h-4 object-contain opacity-80" />
               重要文物
             </h3>
             <button onClick={() => onNavigate?.('artifacts')} className="text-[11px] text-[#8a7a5a] hover:text-gold-dark flex items-center gap-0.5 transition-colors">

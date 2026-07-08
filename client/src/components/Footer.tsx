@@ -1,11 +1,21 @@
 export default function Footer() {
   return (
-    <footer className="w-full flex-shrink-0 relative" style={{ background: 'linear-gradient(180deg, #f5f0e8 0%, #ede5d5 100%)' }}>
-      {/* Red decorative top border - matching reference */}
-      <div className="w-full h-[3px]" style={{ background: 'linear-gradient(90deg, transparent 5%, #C41E3A 20%, #C41E3A 80%, transparent 95%)' }} />
+    <footer className="w-full flex-shrink-0 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #f0e8d4 0%, #e8dcc4 100%)' }}>
+      {/* Mountain silhouette decorative background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img 
+          src="/manus-storage/bottom-mountain-decor_f399058f.png" 
+          alt="" 
+          className="absolute bottom-0 left-0 w-full h-full object-cover object-bottom opacity-[0.18]"
+          style={{ mixBlendMode: 'multiply' }}
+        />
+      </div>
       
-      <div className="py-3 text-center space-y-1.5">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[12px] text-earth/85">
+      {/* Red decorative top border */}
+      <div className="w-full h-[3px] relative z-10" style={{ background: 'linear-gradient(90deg, transparent 5%, #C41E3A 20%, #C41E3A 80%, transparent 95%)' }} />
+      
+      <div className="py-3 text-center space-y-1.5 relative z-10">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[12px] text-earth/90">
           <span><strong className="text-earth">主办单位：</strong>湖南省文化和旅游厅</span>
           <span>湖南省农业农村厅</span>
           <span><strong className="text-earth">技术支持：</strong>湖南省地理信息院</span>
@@ -30,4 +40,3 @@ export default function Footer() {
     </footer>
   );
 }
-
