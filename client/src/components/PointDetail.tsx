@@ -95,28 +95,34 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
             </div>
           </div>
 
-          {/* Action buttons */}
-          <div className="flex border-t border-gold/10">
+          {/* Action buttons - circular gold icon style matching reference */}
+          <div className="flex items-center justify-center gap-6 py-4 border-t border-gold/10 bg-gradient-to-b from-transparent to-gold/3">
             <button
               onClick={() => toast('查看详情', { description: '功能即将上线' })}
-              className="flex-1 flex flex-col items-center gap-1 py-3 text-xs text-earth hover:bg-gold/5 transition-colors border-r border-gold/10 active:scale-97"
+              className="flex flex-col items-center gap-1.5 group"
             >
-              <FileText size={16} className="text-gold-dark" />
-              <span>查看详情</span>
+              <div className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-95" style={{ background: 'linear-gradient(135deg, #a8872e 0%, #8B6914 100%)', boxShadow: '0 2px 8px rgba(139,105,20,0.3)' }}>
+                <FileText size={18} className="text-white" />
+              </div>
+              <span className="text-[11px] text-earth font-medium">查看详情</span>
             </button>
             <button
               onClick={() => toast('路线规划', { description: '功能即将上线' })}
-              className="flex-1 flex flex-col items-center gap-1 py-3 text-xs text-earth hover:bg-gold/5 transition-colors border-r border-gold/10 active:scale-97"
+              className="flex flex-col items-center gap-1.5 group"
             >
-              <Route size={16} className="text-gold-dark" />
-              <span>路线规划</span>
+              <div className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-95" style={{ background: 'linear-gradient(135deg, #a8872e 0%, #8B6914 100%)', boxShadow: '0 2px 8px rgba(139,105,20,0.3)' }}>
+                <Route size={18} className="text-white" />
+              </div>
+              <span className="text-[11px] text-earth font-medium">路线规划</span>
             </button>
             <button
               onClick={() => toast('一键分享', { description: '功能即将上线' })}
-              className="flex-1 flex flex-col items-center gap-1 py-3 text-xs text-earth hover:bg-gold/5 transition-colors active:scale-97"
+              className="flex flex-col items-center gap-1.5 group"
             >
-              <Share2 size={16} className="text-gold-dark" />
-              <span>一键分享</span>
+              <div className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-95" style={{ background: 'linear-gradient(135deg, #a8872e 0%, #8B6914 100%)', boxShadow: '0 2px 8px rgba(139,105,20,0.3)' }}>
+                <Share2 size={18} className="text-white" />
+              </div>
+              <span className="text-[11px] text-earth font-medium">一键分享</span>
             </button>
           </div>
         </motion.div>
