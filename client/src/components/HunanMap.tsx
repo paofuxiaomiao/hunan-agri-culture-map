@@ -53,7 +53,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
       maxBoundsViscosity: 0.8,
     });
 
-    // Use Tianditu (天地图) vector tiles for cleaner Chinese map
+    // Use Amap (高德地图) vector tiles for cleaner Chinese map
     L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}', {
       subdomains: '1234',
       maxZoom: 19,
@@ -197,8 +197,8 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
       isFirstRender.current = false;
       return;
     }
-    mapRef.current.flyTo([selectedPoint.latitude, selectedPoint.longitude], 9, {
-      duration: 0.8,
+    mapRef.current.flyTo([selectedPoint.latitude, selectedPoint.longitude], 11, {
+      duration: 1.2,
     });
   }, [selectedPoint]);
 

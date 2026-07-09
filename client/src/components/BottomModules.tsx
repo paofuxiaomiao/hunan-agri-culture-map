@@ -2,6 +2,7 @@ import { ChevronRight } from 'lucide-react';
 import { themeRoutes, timelineEvents, solarTerms, artifacts } from '@/data/points';
 
 interface BottomModulesProps {
+  onPointSelect?: (pointId: string) => void;
   onNavigate?: (nav: string) => void;
 }
 
@@ -30,7 +31,7 @@ const solarTermIcons: Record<string, string> = {
 // Rice icon for headlines
 const RICE_ICON = '/manus-storage/rice-icon-headline_5ef18957.png';
 
-export default function BottomModules({ onNavigate }: BottomModulesProps) {
+export default function BottomModules({ onNavigate, onPointSelect }: BottomModulesProps) {
   return (
     <div className="w-full flex-shrink-0 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #faf8f2 0%, #f0e8d4 100%)' }}>
       {/* Top gold thread divider */}
@@ -41,7 +42,7 @@ export default function BottomModules({ onNavigate }: BottomModulesProps) {
         <img 
           src="/manus-storage/bottom-field-decor_de0c4d2f.png" 
           alt="" 
-          className="absolute bottom-0 left-0 w-full h-full object-cover object-bottom opacity-[0.12]"
+          className="absolute bottom-0 left-0 w-full h-full object-cover object-bottom opacity-[0.28]"
           style={{ mixBlendMode: 'multiply' }}
         />
       </div>
@@ -61,7 +62,7 @@ export default function BottomModules({ onNavigate }: BottomModulesProps) {
           </div>
           <div className="flex gap-2">
             {themeRoutes.slice(0, 3).map((route) => (
-              <div key={route.id} className="flex-1 group cursor-pointer">
+              <div key={route.id} className="flex-1 group cursor-pointer" onClick={() => onPointSelect?.(route.points[0])}>
                 <div className="aspect-[16/10] rounded overflow-hidden bg-muted mb-1 shadow-sm border border-gold/10 group-hover:shadow-md group-hover:border-gold/25 transition-all duration-200">
                   <img src={route.coverImage} alt={route.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
@@ -142,7 +143,19 @@ export default function BottomModules({ onNavigate }: BottomModulesProps) {
           {/* Single row of 5 larger artifact images */}
           <div className="grid grid-cols-5 gap-2">
             {artifacts.slice(0, 5).map((artifact) => (
-              <div key={artifact.id} className="group cursor-pointer">
+              <div key={artifact.id} className="group cursor-pointer" onClick={() => {
+                // Match artifact's unearthedSite to a culturePoint name
+                const siteToPointMap: Record<string, string> = {
+                  '道县玉蟾岩遗址': 'p002',
+                  '澧县彭头山遗址': 'p006',
+                  '澧县龟市遗址': 'p001',
+                  '龙山县里耶古城': 'p008',
+                  '澧县城头山遗址': 'p001',
+                  '洪江高庙遗址': 'p007',
+                };
+                const pointId = siteToPointMap[artifact.unearthedSite];
+                if (pointId) onPointSelect?.(pointId);
+              }}>
                 <div className="aspect-[3/4] rounded overflow-hidden bg-muted border border-gold/10 group-hover:border-gold/30 group-hover:shadow-md transition-all duration-200">
                   <img src={artifact.image} alt={artifact.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>

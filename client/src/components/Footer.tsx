@@ -1,10 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="w-full flex-shrink-0 relative overflow-hidden" style={{ background: '#2d4a3e' }}>
-      {/* Subtle texture pattern overlay */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.08]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c2 8 8 14 16 16-8 2-14 8-16 16-2-8-8-14-16-16 8-2 14-8 16-16z' fill='%23ffffff' fill-opacity='0.4'/%3E%3C/svg%3E")`,
-        backgroundSize: '60px 60px'
+    <footer className="w-full flex-shrink-0 relative overflow-hidden" style={{ background: '#2b4639' }}>
+      {/* White Hunan traditional pattern overlay (回纹/云纹/如意纹) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.12]" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.8' opacity='0.9'%3E%3Crect x='10' y='10' width='20' height='20' rx='0'/%3E%3Crect x='14' y='14' width='12' height='12' rx='0'/%3E%3Cpath d='M10 10h20v4h-16v12h-4z'/%3E%3Crect x='50' y='10' width='20' height='20' rx='0'/%3E%3Crect x='54' y='14' width='12' height='12' rx='0'/%3E%3Cpath d='M50 10h20v4h-16v12h-4z'/%3E%3Crect x='10' y='50' width='20' height='20' rx='0'/%3E%3Crect x='14' y='54' width='12' height='12' rx='0'/%3E%3Cpath d='M10 50h20v4h-16v12h-4z'/%3E%3Crect x='50' y='50' width='20' height='20' rx='0'/%3E%3Crect x='54' y='54' width='12' height='12' rx='0'/%3E%3Cpath d='M50 50h20v4h-16v12h-4z'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3Cpath d='M34 40a6 6 0 0 1 6-6M46 40a6 6 0 0 1-6 6'/%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundSize: '80px 80px'
       }} />
       
       <div className="py-3 text-center space-y-1 relative z-10">

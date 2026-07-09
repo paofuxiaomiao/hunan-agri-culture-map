@@ -96,7 +96,7 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
           </div>
 
           {/* Action buttons - circular gold icon style matching reference */}
-          <div className="flex items-center justify-center gap-6 py-4 border-t border-gold/10 bg-gradient-to-b from-transparent to-gold/3">
+          <div className="flex items-center justify-center gap-6 py-4 border-t border-gold/10" style={{ background: 'linear-gradient(to bottom, transparent, rgba(139,105,20,0.03))' }}>
             <button
               onClick={() => toast('查看详情', { description: '功能即将上线' })}
               className="flex flex-col items-center gap-1.5 group"

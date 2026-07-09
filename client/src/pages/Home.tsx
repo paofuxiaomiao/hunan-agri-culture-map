@@ -74,6 +74,15 @@ export default function Home() {
     setActiveNav('map');
   }, []);
 
+  const handleBottomPointSelect = useCallback((pointId: string) => {
+    const point = culturePoints.find(p => p.id === pointId);
+    if (point) {
+      setVisibleLayers(prev => ({ ...prev, [point.category]: true }));
+      setActiveNav('map');
+      setSelectedPoint(point);
+    }
+  }, []);
+
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
       <Header
@@ -117,7 +126,7 @@ export default function Home() {
             </main>
 
             {/* Bottom content modules */}
-            <BottomModules onNavigate={handleNavChange} />
+            <BottomModules onNavigate={handleNavChange} onPointSelect={handleBottomPointSelect} />
 
             {/* Footer */}
             <Footer />
