@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, Clock, Route, ChevronRight } from 'lucide-react';
+import { assetUrl, hideBrokenImage } from '@/lib/assets';
 
 // 主题线路数据
 const routesData = [
@@ -10,7 +11,7 @@ const routesData = [
     theme: '考古探源',
     duration: '3天2晚',
     difficulty: '轻松',
-    coverImage: '/manus-storage/irrigation-ditch_4625d299.jpg',
+    coverImage: assetUrl('/manus-storage/irrigation-ditch_4625d299.jpg'),
     description: '探访稻作起源圣地，追溯湖湘农耕文明的千年脉络。从玉蟾岩到城头山，见证人类最早的稻作文明。',
     highlights: ['玉蟾岩遗址', '城头山古稻田', '彭头山遗址', '高庙遗址'],
     color: '#8B6914',
@@ -27,7 +28,7 @@ const routesData = [
     theme: '科技农旅',
     duration: '2天1晚',
     difficulty: '轻松',
-    coverImage: '/manus-storage/wild-rice-display_9b1d30d0.webp',
+    coverImage: assetUrl('/manus-storage/wild-rice-display_9b1d30d0.webp'),
     description: '科技赋能乡村，体验现代农业与乡村振兴成果。从杂交水稻基地到智慧农业示范园，感受科技改变农业的力量。',
     highlights: ['杂交水稻基地', '紫鹊界梯田', '智慧农业园', '隆平水稻博物馆'],
     color: '#4A7C59',
@@ -44,7 +45,7 @@ const routesData = [
     theme: '红色文化',
     duration: '2天1晚',
     difficulty: '适中',
-    coverImage: '/manus-storage/granary-model_21525627.jpg',
+    coverImage: assetUrl('/manus-storage/granary-model_21525627.jpg'),
     description: '走进红色旧址，传承农耕精神与革命记忆。从韶山到浏阳，追寻革命先辈的农耕足迹。',
     highlights: ['韶山毛泽东故居', '浏阳秋收起义旧址', '十八洞村', '红色粮仓'],
     color: '#C41E3A',
@@ -61,7 +62,7 @@ const routesData = [
     theme: '青铜文化',
     duration: '3天2晚',
     difficulty: '适中',
-    coverImage: '/manus-storage/bronze-vessel_1645ed5e.jpg',
+    coverImage: assetUrl('/manus-storage/bronze-vessel_1645ed5e.jpg'),
     description: '探寻商周青铜重器背后的农耕经济基础，从宁乡炭河里到长沙博物馆，感受青铜时代湖南的农业繁荣。',
     highlights: ['炭河里遗址', '四羊方尊出土地', '省博物馆', '铜官窑'],
     color: '#5D4E37',
@@ -78,7 +79,7 @@ const routesData = [
     theme: '民俗文化',
     duration: '3天2晚',
     difficulty: '轻松',
-    coverImage: '/manus-storage/ornate-mirror_fc456ecc.jpg',
+    coverImage: assetUrl('/manus-storage/ornate-mirror_fc456ecc.jpg'),
     description: '体验明清时期"湖广熟天下足"的农耕盛景，探访古村落、古粮仓、传统农具作坊，感受湖湘农耕民俗的活态传承。',
     highlights: ['张谷英村', '凤凰古城', '洪江古商城', '传统农具作坊'],
     color: '#8B4513',
@@ -95,7 +96,7 @@ const routesData = [
     theme: '生态农业',
     duration: '2天1晚',
     difficulty: '轻松',
-    coverImage: '/manus-storage/crop-specimen-2_3ac3a75d.jpg',
+    coverImage: assetUrl('/manus-storage/crop-specimen-2_3ac3a75d.jpg'),
     description: '环洞庭湖探访"天下粮仓"的前世今生，从古代围垸到现代生态农业，见证湖区农业的千年变迁。',
     highlights: ['洞庭湖湿地', '华容稻田', '南县稻虾共作', '君山银针茶园'],
     color: '#1976D2',
@@ -202,6 +203,7 @@ export default function RoutesPage({ onBack }: RoutesPageProps) {
                       src={route.coverImage}
                       alt={route.name}
                       className="w-full h-full object-cover transition-transform duration-[6000ms] ease-linear group-hover:scale-110"
+                      onError={hideBrokenImage}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                     {/* Theme badge */}
@@ -275,7 +277,7 @@ export default function RoutesPage({ onBack }: RoutesPageProps) {
             >
               {/* Cover */}
               <div className="relative h-48 overflow-hidden">
-                <img src={selectedRoute.coverImage} alt={selectedRoute.name} className="w-full h-full object-cover" />
+                <img src={selectedRoute.coverImage} alt={selectedRoute.name} className="w-full h-full object-cover" onError={hideBrokenImage} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-4 left-5 right-5">
                   <span className="px-2.5 py-1 text-[10px] font-bold rounded-full text-white mb-2 inline-block" style={{ background: `${selectedRoute.color}cc` }}>

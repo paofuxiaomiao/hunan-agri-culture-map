@@ -1,3 +1,5 @@
+import { assetUrl } from '@/lib/assets';
+
 export interface CulturePoint {
   id: string;
   name: string;
@@ -262,7 +264,7 @@ export const themeRoutes: ThemeRoute[] = [
   {
     id: 'r001',
     name: '农耕文明探源',
-    coverImage: '/manus-storage/hero-route-1_3d1890fa.png',
+    coverImage: assetUrl('/manus-storage/hero-route-1_3d1890fa.png'),
     summary: '探访稻作起源，追溯湖湘农耕文明的千年脉络',
     theme: '历史探源',
     points: ['p002', 'p006', 'p001', 'p003'],
@@ -271,7 +273,7 @@ export const themeRoutes: ThemeRoute[] = [
   {
     id: 'r002',
     name: '数字农旅体验',
-    coverImage: '/manus-storage/hero-route-2_deabc66e.png',
+    coverImage: assetUrl('/manus-storage/hero-route-2_deabc66e.png'),
     summary: '科技赋能乡村，体验现代农业与乡村振兴成果',
     theme: '科技农旅',
     points: ['p004', 'p009', 'p014', 'p012'],
@@ -280,7 +282,7 @@ export const themeRoutes: ThemeRoute[] = [
   {
     id: 'r003',
     name: '红色农事教育',
-    coverImage: '/manus-storage/hero-route-3_2aad3635.png',
+    coverImage: assetUrl('/manus-storage/hero-route-3_2aad3635.png'),
     summary: '走进红色旧址，传承农耕精神与革命记忆',
     theme: '红色教育',
     points: ['p010', 'p011', 'p005'],

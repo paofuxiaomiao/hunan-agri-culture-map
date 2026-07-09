@@ -250,10 +250,224 @@
     inset 0 0 0 0.5px rgba(255, 255, 255, 0.5);
 }
 
+.point-detail-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.97), rgba(251, 245, 232, 0.96)),
+    rgba(255, 253, 248, 0.95);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(139, 105, 20, 0.14);
+  box-shadow:
+    0 18px 42px rgba(44, 36, 24, 0.13),
+    0 2px 0 rgba(255, 255, 255, 0.72) inset;
+}
+
+.point-detail-panel::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: url('/manus-storage/xiangxi-brocade-pattern.png');
+  background-repeat: repeat-x;
+  background-size: auto 180px;
+  background-position: center -48px;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+}
+
+.point-detail-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.point-meta-chip {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(255, 253, 248, 0.62);
+  border: 1px solid rgba(139, 105, 20, 0.12);
+  color: rgba(61, 46, 10, 0.78);
+}
+
+.point-meta-chip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.point-action-button {
+  border-radius: 8px;
+  padding: 2px 4px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.point-action-button:hover,
+.point-action-button:focus-visible {
+  background: rgba(139, 105, 20, 0.06);
+  outline: none;
+}
+
+.logo-stamp-shell {
+  display: grid;
+  place-items: center;
+}
+
+.logo-stamp-fallback {
+  position: absolute;
+  inset: 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 253, 248, 0.95) 0 42%, transparent 43%),
+    linear-gradient(135deg, #b68b2a, #8b6914);
+  color: #3d2e0a;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.05;
+  border: 1px solid rgba(139, 105, 20, 0.3);
+}
+
 /* Section divider - gold thread line */
 .gold-thread {
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, rgba(139, 105, 20, 0.25) 20%, rgba(139, 105, 20, 0.25) 80%, transparent 100%);
+}
+
+.bottom-modules-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.92) 0%, rgba(247, 239, 219, 0.94) 100%),
+    #fffdf8;
+  box-shadow: 0 -8px 24px rgba(81, 62, 18, 0.06);
+}
+
+.bottom-cultural-pattern {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/manus-storage/xiangxi-brocade-pattern.png');
+  background-repeat: repeat-x;
+  background-size: auto 238px;
+  background-position: center 50%;
+  opacity: 0.48;
+  mix-blend-mode: multiply;
+}
+
+.bottom-paper-grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(255, 253, 248, 0.72), rgba(255, 253, 248, 0.08) 18%, rgba(255, 253, 248, 0.08) 82%, rgba(255, 253, 248, 0.72)),
+    radial-gradient(ellipse at 50% 100%, rgba(139, 105, 20, 0.10), transparent 58%);
+}
+
+.bottom-module-card,
+.bottom-timeline-item,
+.bottom-solar-item {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  min-width: 0;
+  border-radius: 6px;
+  transition:
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.bottom-module-card {
+  display: block;
+  padding: 2px;
+}
+
+.bottom-module-card:hover,
+.bottom-module-card:focus-visible,
+.bottom-timeline-item:hover,
+.bottom-timeline-item:focus-visible,
+.bottom-solar-item:hover,
+.bottom-solar-item:focus-visible {
+  background: rgba(255, 253, 248, 0.68);
+  box-shadow: 0 3px 12px rgba(81, 62, 18, 0.08);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.bottom-module-thumb {
+  background: rgba(255, 253, 248, 0.82);
+}
+
+.bottom-icon-frame {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle, rgba(255, 253, 248, 0.82), rgba(237, 224, 192, 0.72)),
+    rgba(255, 253, 248, 0.78);
+}
+
+.bottom-icon-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: rgba(61, 46, 10, 0.8);
+  font-size: 17px;
+  font-weight: 700;
+  font-family: 'Noto Serif SC', serif;
+}
+
+.footer-pattern-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.94) 0%, rgba(255, 248, 234, 0.96) 100%),
+    #fffdf8;
+  border-top: 1px solid rgba(139, 105, 20, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.footer-xiangxi-pattern {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: url('/manus-storage/xiangxi-brocade-pattern.png');
+  background-repeat: repeat-x;
+  background-size: auto 178px;
+  background-position: center 48%;
+  opacity: 0.40;
+  mix-blend-mode: multiply;
+}
+
+.footer-crest {
+  width: 48px;
+  height: 12px;
+  margin: 0 auto 4px;
+  border-top: 1px solid rgba(139, 105, 20, 0.55);
+  position: relative;
+}
+
+.footer-crest::before,
+.footer-crest::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-top: 1px solid rgba(46, 88, 71, 0.7);
+  border-left: 1px solid rgba(46, 88, 71, 0.7);
+  transform: translate(-50%, -4px) rotate(45deg);
+}
+
+.footer-crest::after {
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -1px) rotate(45deg);
+  border-color: rgba(199, 71, 61, 0.5);
 }
 
 /* Scrollbar styling - subtle ink */
@@ -278,18 +492,22 @@
   inset: 0;
   z-index: 399;
   background:
-    radial-gradient(ellipse 60% 65% at 45% 46%, transparent 30%, rgba(245, 240, 232, 0.3) 50%, rgba(245, 240, 232, 0.6) 65%, rgba(245, 240, 232, 0.85) 80%, rgba(245, 240, 232, 0.95) 100%);
-  /* Clip right side so it doesn't obscure the detail panel */
-  clip-path: inset(0 340px 0 0);
+    radial-gradient(ellipse 74% 78% at 50% 48%, rgba(245, 240, 232, 0) 0%, rgba(245, 240, 232, 0) 43%, rgba(245, 240, 232, 0.28) 74%, rgba(245, 240, 232, 0.52) 100%),
+    linear-gradient(90deg, rgba(245, 240, 232, 0.22), rgba(245, 240, 232, 0) 18%, rgba(245, 240, 232, 0) 82%, rgba(245, 240, 232, 0.22));
+  clip-path: inset(0 410px 0 0);
 }
 
-/* Marker pulse animation for selected point */
-@keyframes marker-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(139, 105, 20, 0.4); }
-  70% { box-shadow: 0 0 0 12px rgba(139, 105, 20, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(139, 105, 20, 0); }
-}
-
-.marker-pulse {
-  animation: marker-pulse 2s infinite;
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.42;
+  }
+  70% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
 }

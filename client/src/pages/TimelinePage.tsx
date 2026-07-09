@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { assetUrl, hideBrokenImage } from '@/lib/assets';
 
 // 发展脉络数据 - 横向时间轴
 const timelineData = [
@@ -11,7 +12,7 @@ const timelineData = [
     yearRange: '14000 BP',
     color: '#6B4E2A',
     bgGradient: 'from-amber-900/10 to-amber-800/5',
-    image: '/manus-storage/crop-specimen-1_5f13c604.jpg',
+    image: assetUrl('/manus-storage/crop-specimen-1_5f13c604.jpg'),
     title: '万年稻作的曙光',
     description: '湖南道县玉蟾岩遗址发现了距今约14000年的古栽培稻遗存，是世界上已知最早的稻作证据之一。这一发现将人类栽培水稻的历史大幅前推，确立了湖南在世界稻作文明起源中的核心地位。',
     keyEvents: ['玉蟾岩遗址发现古稻壳', '野生稻向栽培稻过渡', '人类最早的农业尝试'],
@@ -24,7 +25,7 @@ const timelineData = [
     yearRange: '7000 BP',
     color: '#8B6914',
     bgGradient: 'from-yellow-800/10 to-yellow-700/5',
-    image: '/manus-storage/irrigation-ditch_4625d299.jpg',
+    image: assetUrl('/manus-storage/irrigation-ditch_4625d299.jpg'),
     title: '稻田文明的确立',
     description: '澧县城头山遗址发现了距今约6500年的古稻田遗迹，包括完整的灌溉系统、犁耕痕迹和水稻田埂。这是中国乃至世界上已知最早的水稻田实物遗存，标志着湖湘先民已从原始农业进入系统化的稻作农业阶段。',
     keyEvents: ['城头山古稻田发现', '灌溉系统建立', '犁耕技术出现', '环壕聚落形成'],
@@ -37,7 +38,7 @@ const timelineData = [
     yearRange: '1600 BC',
     color: '#4A7C59',
     bgGradient: 'from-green-800/10 to-green-700/5',
-    image: '/manus-storage/bronze-vessel_1645ed5e.jpg',
+    image: assetUrl('/manus-storage/bronze-vessel_1645ed5e.jpg'),
     title: '青铜时代的农耕繁荣',
     description: '商周时期，湖南青铜文明达到鼎盛，大量青铜礼器的铸造需要强大的农业经济支撑。秦汉时期，"楚地饶谷"的记载表明湖南已成为重要的粮食产区。马王堆汉墓出土的稻谷粟标本，直接证明了汉代湖南"稻粟兼作"的农业格局。',
     keyEvents: ['青铜礼器大量铸造', '"楚地饶谷"载入史册', '铁制农具推广', '马王堆汉墓随葬谷物'],
@@ -50,7 +51,7 @@ const timelineData = [
     yearRange: '581 AD',
     color: '#C41E3A',
     bgGradient: 'from-red-800/10 to-red-700/5',
-    image: '/manus-storage/ornate-mirror_fc456ecc.jpg',
+    image: assetUrl('/manus-storage/ornate-mirror_fc456ecc.jpg'),
     title: '湖广熟天下足',
     description: '"江西填湖广"的大规模移民运动带来了先进的农耕技术和大量劳动力，推动了湖南农业的跨越式发展。明清时期"湖广熟，天下足"的谚语，标志着湖南已成为全国最重要的粮食产区之一。',
     keyEvents: ['"江西填湖广"人口迁移', '双季稻推广', '梯田大规模开发', '"湖广熟天下足"'],
@@ -63,7 +64,7 @@ const timelineData = [
     yearRange: '1900s',
     color: '#2E7D32',
     bgGradient: 'from-emerald-800/10 to-emerald-700/5',
-    image: '/manus-storage/wild-rice-display_9b1d30d0.webp',
+    image: assetUrl('/manus-storage/wild-rice-display_9b1d30d0.webp'),
     title: '杂交水稻的故乡',
     description: '1973年，袁隆平在湖南成功培育出世界首个杂交水稻品种，开创了水稻育种的新纪元。从野生稻到杂交稻，湖南始终站在世界稻作文明的最前沿，为全球粮食安全作出了不可磨灭的贡献。',
     keyEvents: ['袁隆平杂交水稻成功', '超级稻亩产突破', '现代农业科技园建设', '稻作文化遗产保护'],
@@ -76,7 +77,7 @@ const timelineData = [
     yearRange: '1970s',
     color: '#1565C0',
     bgGradient: 'from-blue-800/10 to-blue-700/5',
-    image: '/manus-storage/grain-processing_c71ef1ab.jpg',
+    image: assetUrl('/manus-storage/grain-processing_c71ef1ab.jpg'),
     title: '从传统到现代的传承',
     description: '现代湖南在保护传统农耕文化遗产的同时，积极推进农业现代化。从古代陶粮仓到现代粮食储备体系，从手工碾米到机械化加工，湖湘农耕文明在传承中不断创新发展。',
     keyEvents: ['传统农具保护收藏', '农耕文化博物馆建设', '非遗技艺传承', '数字化保护工程'],
@@ -226,6 +227,7 @@ export default function TimelinePage({ onBack }: TimelinePageProps) {
                       src={item.image}
                       alt={item.title}
                       className="w-full h-48 md:h-full object-cover"
+                      onError={hideBrokenImage}
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20 md:bg-gradient-to-l" />
                     {/* Era badge */}

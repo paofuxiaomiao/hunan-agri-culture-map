@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ZoomIn, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { assetUrl, hideBrokenImage } from '@/lib/assets';
 
 // 文物数据 - 使用用户提供的真实博物馆素材
 const artifactCategories = [
@@ -19,7 +20,7 @@ const artifactsData = [
     category: 'specimen',
     period: '西汉（约公元前206年-公元8年）',
     site: '长沙马王堆汉墓一号汉墓出土',
-    image: '/manus-storage/crop-specimen-2_3ac3a75d.jpg',
+    image: assetUrl('/manus-storage/crop-specimen-2_3ac3a75d.jpg'),
     description: '马王堆汉墓出土的稻谷与粟标本，保存完好，是研究西汉时期湖南农业种植结构的珍贵实物证据。左侧为稻谷，右侧为粟，反映了当时"稻粟兼作"的农业格局。',
     significance: '国家一级文物',
     tags: ['西汉', '稻谷', '粟', '马王堆'],
@@ -30,7 +31,7 @@ const artifactsData = [
     category: 'specimen',
     period: '新石器时代至今',
     site: '湖南省博物馆馆藏',
-    image: '/manus-storage/wild-rice-display_9b1d30d0.webp',
+    image: assetUrl('/manus-storage/wild-rice-display_9b1d30d0.webp'),
     description: '展示了从野生稻到人工栽培稻的演化过程。前期野生稻与人工栽培稻的对比标本，直观呈现了湖湘先民驯化水稻的伟大历程，是稻作文明起源的重要物证。',
     significance: '重要展品',
     tags: ['野生稻', '栽培稻', '驯化', '稻作起源'],
@@ -41,7 +42,7 @@ const artifactsData = [
     category: 'specimen',
     period: '距今约14000-12000年',
     site: '湖南道县玉蟾岩遗址出土',
-    image: '/manus-storage/crop-specimen-1_5f13c604.jpg',
+    image: assetUrl('/manus-storage/crop-specimen-1_5f13c604.jpg'),
     description: '玉蟾岩遗址出土的古稻壳标本，是目前世界上已知最早的稻作遗存之一。这两粒微小的古稻壳，见证了人类从采集野生稻到有意识栽培水稻的关键转变。',
     significance: '世界级考古发现',
     tags: ['玉蟾岩', '古稻壳', '万年稻作', '世界之最'],
@@ -52,7 +53,7 @@ const artifactsData = [
     category: 'tool',
     period: '东汉（25年-220年）',
     site: '湖南各地汉墓出土',
-    image: '/manus-storage/grain-processing_c71ef1ab.jpg',
+    image: assetUrl('/manus-storage/grain-processing_c71ef1ab.jpg'),
     description: '东汉时期的陶制粮仓模型与粮食加工器具，包括陶粮囷、陶磨、陶碓等。这些随葬明器真实再现了当时粮食储存与加工的完整流程，反映了汉代湖南农业的高度发展。',
     significance: '省级文物',
     tags: ['东汉', '陶粮囷', '粮食加工', '明器'],
@@ -63,7 +64,7 @@ const artifactsData = [
     category: 'architecture',
     period: '西汉（约公元前206年-公元8年）',
     site: '1954年长沙河西杜陵出土',
-    image: '/manus-storage/granary-model_21525627.jpg',
+    image: assetUrl('/manus-storage/granary-model_21525627.jpg'),
     description: '模合模型，可以拆卸。仓顶有凸起的瓦楞；仓门可开，一侧门框上刻有"万石仓"三字。古人储谷用质日仓，横米日廪。此件为研究汉代粮仓建筑的重要实物资料。',
     significance: '国家二级文物',
     tags: ['西汉', '万石仓', '粮仓建筑', '陶模型'],
@@ -74,7 +75,7 @@ const artifactsData = [
     category: 'field',
     period: '新石器时代（约6500年前）',
     site: '澧县城头山遗址',
-    image: '/manus-storage/irrigation-ditch_4625d299.jpg',
+    image: assetUrl('/manus-storage/irrigation-ditch_4625d299.jpg'),
     description: '城头山遗址发现的古稻田灌溉沟遗存，是中国目前发现最早的水稻田灌溉系统实物证据。清晰可见的沟渠痕迹，证明了6500年前湖湘先民已掌握了水利灌溉技术。',
     significance: '全国重点文物保护单位',
     tags: ['城头山', '灌溉系统', '水利', '稻田'],
@@ -85,7 +86,7 @@ const artifactsData = [
     category: 'field',
     period: '新石器时代（约6500年前）',
     site: '澧县城头山遗址',
-    image: '/manus-storage/plow-marks_83f28f57.jpg',
+    image: assetUrl('/manus-storage/plow-marks_83f28f57.jpg'),
     description: '城头山遗址古稻田耕作层中保存的犁痕标本。这些清晰的犁耕痕迹是中国最早的犁耕证据之一，表明新石器时代晚期湖南先民已开始使用犁具进行农田翻耕。',
     significance: '重要考古发现',
     tags: ['犁痕', '耕作层', '犁耕技术', '城头山'],
@@ -96,7 +97,7 @@ const artifactsData = [
     category: 'bronze',
     period: '商周时期（约公元前1600年-公元前256年）',
     site: '湖南省博物馆馆藏',
-    image: '/manus-storage/bronze-vessel_1645ed5e.jpg',
+    image: assetUrl('/manus-storage/bronze-vessel_1645ed5e.jpg'),
     description: '商周时期的青铜提梁卣，器身饰有精美的饕餮纹、云雷纹等纹饰。卣为盛酒器，与农耕祭祀密切相关。青铜器的铸造需要大量粮食供养工匠，是农业发达的间接证据。',
     significance: '国家一级文物',
     tags: ['商周', '青铜卣', '饕餮纹', '祭祀'],
@@ -107,7 +108,7 @@ const artifactsData = [
     category: 'architecture',
     period: '清代（1644年-1911年）',
     site: '湖南民间收藏',
-    image: '/manus-storage/ornate-mirror_fc456ecc.jpg',
+    image: assetUrl('/manus-storage/ornate-mirror_fc456ecc.jpg'),
     description: '清代湖南民间精美木雕屏风，采用透雕、浮雕等多种技法，雕刻有凤凰、花卉、瑞兽等吉祥纹样。背景展示了"江西填湖广"人口迁移示意图，反映了明清时期湖南农业开发与人口迁移的历史。',
     significance: '省级文物',
     tags: ['清代', '木雕', '江西填湖广', '民间工艺'],
@@ -230,6 +231,7 @@ export default function ArtifactsPage({ onBack }: ArtifactsPageProps) {
                       src={artifact.image}
                       alt={artifact.name}
                       className="w-full h-full object-cover transition-transform duration-[8000ms] ease-linear group-hover:scale-110"
+                      onError={hideBrokenImage}
                     />
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -311,6 +313,7 @@ export default function ArtifactsPage({ onBack }: ArtifactsPageProps) {
                     src={selectedArtifact.image}
                     alt={selectedArtifact.name}
                     className="w-full h-64 md:h-full object-cover"
+                    onError={hideBrokenImage}
                   />
                 </div>
 

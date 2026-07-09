@@ -93,7 +93,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
 
       L.polygon(maskCoords, {
         fillColor: '#f5f0e8',
-        fillOpacity: 0.82,
+        fillOpacity: 0.64,
         stroke: false,
         interactive: false,
       }).addTo(map);
@@ -133,24 +133,36 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
       const color = categoryColors[point.category];
       const isSelected = selectedPoint?.id === point.id;
       const size = isSelected ? 22 : 12;
-      const borderWidth = isSelected ? 3 : 2;
+      const borderWidth = isSelected ? 3 : 2.5;
+      const ringSize = isSelected ? 42 : size;
 
       const icon = L.divIcon({
         className: 'custom-marker',
         html: `
-          <div class="${isSelected ? 'marker-pulse' : ''}" style="
-            width: ${size}px;
-            height: ${size}px;
-            background: ${color};
-            border: ${borderWidth}px solid white;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.35)${isSelected ? ', 0 0 0 6px ' + color + '25' : ''};
-            cursor: pointer;
-            transition: all 0.3s ease;
-          "></div>
+          <div style="position: relative; width: ${ringSize}px; height: ${ringSize}px; display: flex; align-items: center; justify-content: center;">
+            ${isSelected ? `<div style="
+              position: absolute;
+              inset: 4px;
+              border-radius: 999px;
+              background: ${color};
+              opacity: 0.28;
+              animation: pulse-ring 1.8s ease-out infinite;
+            "></div>` : ''}
+            <div style="
+              position: relative;
+              width: ${size}px;
+              height: ${size}px;
+              background: radial-gradient(circle at 35% 30%, #fff9 0 11%, ${color} 13% 100%);
+              border: ${borderWidth}px solid white;
+              border-radius: ${isSelected ? '8px' : '50%'};
+              box-shadow: 0 2px 8px rgba(44,36,24,0.28)${isSelected ? ', 0 0 0 5px ' + color + '26, 0 8px 18px rgba(44,36,24,0.24)' : ''};
+              cursor: pointer;
+              transform: ${isSelected ? 'rotate(-4deg)' : 'none'};
+            "></div>
+          </div>
         `,
-        iconSize: [size, size],
-        iconAnchor: [size / 2, size / 2],
+        iconSize: [ringSize, ringSize],
+        iconAnchor: [ringSize / 2, ringSize / 2],
       });
 
       const marker = L.marker([point.latitude, point.longitude], { icon });
@@ -161,7 +173,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
         marker.bindTooltip(point.name, {
           permanent: true,
           direction: 'top',
-          offset: [0, -12],
+          offset: [0, isSelected ? -20 : -12],
           className: tooltipClass,
         });
       }
@@ -244,7 +256,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
       </div>
 
       {/* Scale bar */}
-      <div className="absolute bottom-5 left-4 z-[400] flex items-end gap-0.5 text-xs text-earth/80 bg-white/70 px-2 py-1 rounded">
+      <div className="absolute bottom-4 left-4 z-[400] flex items-end gap-0.5 text-xs text-earth/80 bg-white/75 px-2 py-1 rounded border border-gold/10 shadow-sm">
         <span>0</span>
         <div className="flex items-center">
           <div className="w-12 h-0.5 bg-earth/60 mx-1" />
@@ -257,7 +269,7 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
       </div>
 
       {/* Mini map / overview inset */}
-      <div className="absolute bottom-5 right-5 z-[400] w-28 h-24 bg-white/90 border border-gold/20 rounded-lg shadow-md overflow-hidden">
+      <div className="absolute bottom-4 right-5 z-[400] w-28 h-24 bg-white/88 border border-gold/20 rounded-lg shadow-md overflow-hidden">
         <div className="w-full h-full flex items-center justify-center p-1">
           <svg viewBox="0 0 120 120" className="w-full h-full">
             {/* Simplified Hunan province outline */}

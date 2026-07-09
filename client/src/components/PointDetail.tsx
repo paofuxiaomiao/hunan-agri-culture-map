@@ -1,4 +1,4 @@
-import { X, ChevronLeft, ChevronRight, FileText, Route, Share2 } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, FileText, Route, Share2, MapPin, CalendarDays } from 'lucide-react';
 import { CulturePoint } from '@/data/points';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -32,11 +32,10 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
           transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-          className="absolute top-4 right-4 z-[1001] w-[320px] glass-panel rounded-xl overflow-hidden max-h-[calc(100%-2rem)]"
-          style={{ overflowY: 'auto' }}
+          className="absolute top-3 right-3 z-[1001] w-[min(384px,calc(100vw-1.5rem))] point-detail-panel rounded-lg overflow-hidden max-h-[calc(100%-1.5rem)] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold/10 sticky top-0 bg-white/95 backdrop-blur-sm z-10">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold/10 bg-white/95 backdrop-blur-sm flex-shrink-0">
             <div className="flex items-center gap-2">
               <svg width="15" height="15" viewBox="0 0 16 16" fill="none" className="text-gold-dark">
                 <circle cx="8" cy="8" r="3" fill="currentColor" opacity="0.3"/>
@@ -58,7 +57,7 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
           </div>
 
           {/* Content */}
-          <div className="p-4 space-y-3">
+          <div className="p-4 space-y-3 overflow-y-auto min-h-0">
             {/* Title and category */}
             <div>
               <h4 className="text-[15px] font-bold text-foreground font-serif leading-tight">{point.name}</h4>
@@ -70,12 +69,23 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
               </span>
             </div>
 
+            <div className="grid grid-cols-2 gap-2 text-[11px]">
+              <div className="point-meta-chip">
+                <MapPin size={12} className="text-gold-dark" />
+                <span>{point.city} · {point.district}</span>
+              </div>
+              <div className="point-meta-chip">
+                <CalendarDays size={12} className="text-gold-dark" />
+                <span>{point.period}</span>
+              </div>
+            </div>
+
             {/* Cover image */}
-            <div className="rounded-lg overflow-hidden aspect-[16/10] bg-muted shadow-sm">
+            <div className="rounded-md overflow-hidden aspect-[16/10] bg-muted shadow-sm border border-gold/10">
               <img
                 src={point.coverImage}
                 alt={point.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]"
               />
             </div>
 
@@ -96,10 +106,10 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
           </div>
 
           {/* Action buttons - circular gold icon style matching reference */}
-          <div className="flex items-center justify-center gap-6 py-4 border-t border-gold/10" style={{ background: 'linear-gradient(to bottom, transparent, rgba(139,105,20,0.03))' }}>
+          <div className="flex items-center justify-center gap-6 py-3.5 border-t border-gold/10 flex-shrink-0" style={{ background: 'linear-gradient(to bottom, rgba(255,253,248,0.88), rgba(139,105,20,0.05))' }}>
             <button
               onClick={() => toast('查看详情', { description: '功能即将上线' })}
-              className="flex flex-col items-center gap-1.5 group"
+              className="flex flex-col items-center gap-1.5 group point-action-button"
             >
               <div className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-95" style={{ background: 'linear-gradient(135deg, #a8872e 0%, #8B6914 100%)', boxShadow: '0 2px 8px rgba(139,105,20,0.3)' }}>
                 <FileText size={18} className="text-white" />
@@ -108,7 +118,7 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
             </button>
             <button
               onClick={() => toast('路线规划', { description: '功能即将上线' })}
-              className="flex flex-col items-center gap-1.5 group"
+              className="flex flex-col items-center gap-1.5 group point-action-button"
             >
               <div className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-95" style={{ background: 'linear-gradient(135deg, #a8872e 0%, #8B6914 100%)', boxShadow: '0 2px 8px rgba(139,105,20,0.3)' }}>
                 <Route size={18} className="text-white" />
@@ -117,7 +127,7 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
             </button>
             <button
               onClick={() => toast('一键分享', { description: '功能即将上线' })}
-              className="flex flex-col items-center gap-1.5 group"
+              className="flex flex-col items-center gap-1.5 group point-action-button"
             >
               <div className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-95" style={{ background: 'linear-gradient(135deg, #a8872e 0%, #8B6914 100%)', boxShadow: '0 2px 8px rgba(139,105,20,0.3)' }}>
                 <Share2 size={18} className="text-white" />

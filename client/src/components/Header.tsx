@@ -1,5 +1,6 @@
 import { Search, Share2 } from 'lucide-react';
 import { useState } from 'react';
+import { assetUrl } from '@/lib/assets';
 
 interface HeaderProps {
   activeNav: string;
@@ -30,11 +31,15 @@ export default function Header({ activeNav, onNavChange, onSearch }: HeaderProps
         <div className="flex items-center justify-between px-5 h-[56px]">
           {/* Brand area - seal + literary title */}
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 flex-shrink-0 relative">
+            <div className="w-11 h-11 flex-shrink-0 relative logo-stamp-shell">
+              <span className="logo-stamp-fallback">农<br />耕</span>
               <img
-                src="/manus-storage/logo-stamp_8200fddc.png"
+                src={assetUrl('/manus-storage/logo-stamp_8200fddc.png')}
                 alt="农耕文明"
                 className="w-full h-full object-contain drop-shadow-sm"
+                onError={(event) => {
+                  event.currentTarget.style.display = 'none';
+                }}
               />
             </div>
             <div className="border-l border-gold/20 pl-3.5">

@@ -205,7 +205,17 @@ function vitePluginStorageProxy(): Plugin {
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
+function normalizeBasePath(value: string) {
+  if (!value) return "/";
+  return value.endsWith("/") ? value : `${value}/`;
+}
+
+const repositoryName = process.env.GITHUB_REPOSITORY?.split("/")[1];
+const defaultPagesBase = process.env.GITHUB_ACTIONS && repositoryName ? `/${repositoryName}/` : "/";
+const base = normalizeBasePath(process.env.BASE_PATH || process.env.VITE_BASE_PATH || defaultPagesBase);
+
 export default defineConfig({
+  base,
   plugins,
   resolve: {
     alias: {
