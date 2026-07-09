@@ -42,8 +42,8 @@ export default function BottomModules({ onNavigate, onPointSelect }: BottomModul
         <img 
           src="/manus-storage/bottom-field-decor_de0c4d2f.png" 
           alt="" 
-          className="absolute bottom-0 left-0 w-full h-full object-cover object-bottom opacity-[0.28]"
-          style={{ mixBlendMode: 'multiply' }}
+          className="absolute bottom-0 left-0 w-full h-[130%] object-cover opacity-[0.32]"
+          style={{ mixBlendMode: 'multiply', objectPosition: 'center 70%' }}
         />
       </div>
 
@@ -62,9 +62,10 @@ export default function BottomModules({ onNavigate, onPointSelect }: BottomModul
           </div>
           <div className="flex gap-2">
             {themeRoutes.slice(0, 3).map((route) => (
-              <div key={route.id} className="flex-1 group cursor-pointer" onClick={() => onPointSelect?.(route.points[0])}>
-                <div className="aspect-[16/10] rounded overflow-hidden bg-muted mb-1 shadow-sm border border-gold/10 group-hover:shadow-md group-hover:border-gold/25 transition-all duration-200">
-                  <img src={route.coverImage} alt={route.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div key={route.id} className="flex-1 group cursor-pointer active:scale-[0.97] transition-transform duration-150" onClick={() => onPointSelect?.(route.points[0])}>
+                <div className="aspect-[16/10] rounded-md overflow-hidden bg-muted mb-1 shadow-sm border border-gold/10 group-hover:shadow-lg group-hover:border-gold/30 transition-all duration-300 relative">
+                  <img src={route.coverImage} alt={route.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <h4 className="text-[11px] font-bold text-foreground truncate group-hover:text-gold-dark transition-colors leading-tight">{route.name}</h4>
                 <p className="text-[9px] text-muted-foreground line-clamp-2 leading-snug mt-0.5">{route.summary}</p>
@@ -143,7 +144,7 @@ export default function BottomModules({ onNavigate, onPointSelect }: BottomModul
           {/* Single row of 5 larger artifact images */}
           <div className="grid grid-cols-5 gap-2">
             {artifacts.slice(0, 5).map((artifact) => (
-              <div key={artifact.id} className="group cursor-pointer" onClick={() => {
+              <div key={artifact.id} className="group cursor-pointer active:scale-[0.97] transition-transform duration-150" onClick={() => {
                 // Match artifact's unearthedSite to a culturePoint name
                 const siteToPointMap: Record<string, string> = {
                   '道县玉蟾岩遗址': 'p002',
@@ -156,8 +157,9 @@ export default function BottomModules({ onNavigate, onPointSelect }: BottomModul
                 const pointId = siteToPointMap[artifact.unearthedSite];
                 if (pointId) onPointSelect?.(pointId);
               }}>
-                <div className="aspect-[3/4] rounded overflow-hidden bg-muted border border-gold/10 group-hover:border-gold/30 group-hover:shadow-md transition-all duration-200">
-                  <img src={artifact.image} alt={artifact.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="aspect-[3/4] rounded-md overflow-hidden bg-muted border border-gold/10 group-hover:border-gold/30 group-hover:shadow-lg transition-all duration-300 relative">
+                  <img src={artifact.image} alt={artifact.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <p className="text-[8px] text-foreground/65 mt-0.5 truncate text-center group-hover:text-gold-dark transition-colors">{artifact.name}</p>
               </div>

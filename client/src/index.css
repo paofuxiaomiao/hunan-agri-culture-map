@@ -278,5 +278,18 @@
   inset: 0;
   z-index: 399;
   background:
-    radial-gradient(ellipse 55% 62% at 48% 46%, transparent 25%, rgba(245, 240, 232, 0.4) 45%, rgba(245, 240, 232, 0.75) 60%, rgba(245, 240, 232, 0.95) 78%, rgba(245, 240, 232, 1) 100%);
+    radial-gradient(ellipse 60% 65% at 45% 46%, transparent 30%, rgba(245, 240, 232, 0.3) 50%, rgba(245, 240, 232, 0.6) 65%, rgba(245, 240, 232, 0.85) 80%, rgba(245, 240, 232, 0.95) 100%);
+  /* Clip right side so it doesn't obscure the detail panel */
+  clip-path: inset(0 340px 0 0);
+}
+
+/* Marker pulse animation for selected point */
+@keyframes marker-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(139, 105, 20, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(139, 105, 20, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 105, 20, 0); }
+}
+
+.marker-pulse {
+  animation: marker-pulse 2s infinite;
 }

@@ -132,20 +132,21 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
     points.forEach((point) => {
       const color = categoryColors[point.category];
       const isSelected = selectedPoint?.id === point.id;
-      const size = isSelected ? 18 : 12;
-      const borderWidth = isSelected ? 3 : 2.5;
+      const size = isSelected ? 22 : 12;
+      const borderWidth = isSelected ? 3 : 2;
 
       const icon = L.divIcon({
         className: 'custom-marker',
         html: `
-          <div style="
+          <div class="${isSelected ? 'marker-pulse' : ''}" style="
             width: ${size}px;
             height: ${size}px;
             background: ${color};
             border: ${borderWidth}px solid white;
             border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3)${isSelected ? ', 0 0 0 5px ' + color + '30' : ''};
+            box-shadow: 0 2px 8px rgba(0,0,0,0.35)${isSelected ? ', 0 0 0 6px ' + color + '25' : ''};
             cursor: pointer;
+            transition: all 0.3s ease;
           "></div>
         `,
         iconSize: [size, size],
