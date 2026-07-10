@@ -2,6 +2,7 @@ import { X, ChevronLeft, ChevronRight, FileText, Route, Share2, MapPin, Calendar
 import { CulturePoint } from '@/data/points';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
+import { assetUrl } from '@/lib/assets';
 
 interface PointDetailProps {
   point: CulturePoint | null;
@@ -33,6 +34,9 @@ export default function PointDetail({ point, onClose, onPrev, onNext }: PointDet
           exit={{ opacity: 0, x: 20 }}
           transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           className="absolute top-3 right-3 z-[1001] w-[min(384px,calc(100vw-1.5rem))] point-detail-panel rounded-lg overflow-hidden max-h-[calc(100%-1.5rem)] flex flex-col"
+          style={{
+            '--xiangxi-pattern': `url("${assetUrl('/manus-storage/xiangxi-brocade-pattern.png')}")`,
+          } as React.CSSProperties}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold/10 bg-white/95 backdrop-blur-sm flex-shrink-0">

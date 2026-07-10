@@ -43,7 +43,12 @@ function swapToFallbackImage(event: { currentTarget: HTMLImageElement }, fallbac
 
 export default function BottomModules({ onNavigate, onPointSelect }: BottomModulesProps) {
   return (
-    <div className="w-full flex-shrink-0 bottom-modules-shell relative overflow-hidden">
+    <div
+      className="w-full flex-shrink-0 bottom-modules-shell relative overflow-hidden"
+      style={{
+        '--xiangxi-pattern': `url("${assetUrl('/manus-storage/xiangxi-brocade-pattern.png')}")`,
+      } as React.CSSProperties}
+    >
       <div className="gold-thread" />
       <div className="bottom-cultural-pattern" />
       <div className="bottom-paper-grain" />

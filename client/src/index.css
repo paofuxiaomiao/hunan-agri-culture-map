@@ -266,7 +266,7 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background-image: url('/manus-storage/xiangxi-brocade-pattern.png');
+  background-image: var(--xiangxi-pattern);
   background-repeat: repeat-x;
   background-size: auto 180px;
   background-position: center -48px;
@@ -350,7 +350,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url('/manus-storage/xiangxi-brocade-pattern.png');
+  background-image: var(--xiangxi-pattern);
   background-repeat: repeat-x;
   background-size: auto 238px;
   background-position: center 50%;
@@ -435,7 +435,7 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background-image: url('/manus-storage/xiangxi-brocade-pattern.png');
+  background-image: var(--xiangxi-pattern);
   background-repeat: repeat-x;
   background-size: auto 178px;
   background-position: center 48%;

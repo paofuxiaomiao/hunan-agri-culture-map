@@ -1,6 +1,13 @@
+import { assetUrl } from '@/lib/assets';
+
 export default function Footer() {
   return (
-    <footer className="w-full flex-shrink-0 footer-pattern-shell relative overflow-hidden">
+    <footer
+      className="w-full flex-shrink-0 footer-pattern-shell relative overflow-hidden"
+      style={{
+        '--xiangxi-pattern': `url("${assetUrl('/manus-storage/xiangxi-brocade-pattern.png')}")`,
+      } as React.CSSProperties}
+    >
       <div className="footer-xiangxi-pattern" />
 
       <div className="py-2.5 text-center space-y-1 relative z-10">
