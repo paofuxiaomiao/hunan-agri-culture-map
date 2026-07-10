@@ -338,36 +338,6 @@
   background: linear-gradient(90deg, transparent 0%, rgba(139, 105, 20, 0.25) 20%, rgba(139, 105, 20, 0.25) 80%, transparent 100%);
 }
 
-.bottom-modules-shell {
-  background:
-    linear-gradient(180deg, rgba(255, 253, 248, 0.92) 0%, rgba(247, 239, 219, 0.94) 100%),
-    #fffdf8;
-  box-shadow: 0 -8px 24px rgba(81, 62, 18, 0.06);
-}
-
-.bottom-cultural-pattern {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: var(--xiangxi-pattern);
-  background-repeat: repeat-x;
-  background-size: auto 238px;
-  background-position: center 50%;
-  opacity: 0.48;
-  mix-blend-mode: multiply;
-}
-
-.bottom-paper-grain {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(90deg, rgba(255, 253, 248, 0.72), rgba(255, 253, 248, 0.08) 18%, rgba(255, 253, 248, 0.08) 82%, rgba(255, 253, 248, 0.72)),
-    radial-gradient(ellipse at 50% 100%, rgba(139, 105, 20, 0.10), transparent 58%);
-}
-
 .bottom-module-card,
 .bottom-timeline-item,
 .bottom-solar-item {
@@ -421,53 +391,6 @@
   font-size: 17px;
   font-weight: 700;
   font-family: 'Noto Serif SC', serif;
-}
-
-.footer-pattern-shell {
-  background:
-    linear-gradient(180deg, rgba(255, 253, 248, 0.94) 0%, rgba(255, 248, 234, 0.96) 100%),
-    #fffdf8;
-  border-top: 1px solid rgba(139, 105, 20, 0.16);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
-}
-
-.footer-xiangxi-pattern {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background-image: var(--xiangxi-pattern);
-  background-repeat: repeat-x;
-  background-size: auto 178px;
-  background-position: center 48%;
-  opacity: 0.40;
-  mix-blend-mode: multiply;
-}
-
-.footer-crest {
-  width: 48px;
-  height: 12px;
-  margin: 0 auto 4px;
-  border-top: 1px solid rgba(139, 105, 20, 0.55);
-  position: relative;
-}
-
-.footer-crest::before,
-.footer-crest::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 12px;
-  height: 12px;
-  border-top: 1px solid rgba(46, 88, 71, 0.7);
-  border-left: 1px solid rgba(46, 88, 71, 0.7);
-  transform: translate(-50%, -4px) rotate(45deg);
-}
-
-.footer-crest::after {
-  width: 8px;
-  height: 8px;
-  transform: translate(-50%, -1px) rotate(45deg);
-  border-color: rgba(199, 71, 61, 0.5);
 }
 
 /* Scrollbar styling - subtle ink */

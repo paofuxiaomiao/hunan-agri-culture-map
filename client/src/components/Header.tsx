@@ -34,7 +34,7 @@ export default function Header({ activeNav, onNavChange, onSearch }: HeaderProps
             <div className="w-11 h-11 flex-shrink-0 relative logo-stamp-shell">
               <span className="logo-stamp-fallback">农<br />耕</span>
               <img
-                src={assetUrl('/manus-storage/logo-stamp_8200fddc.png')}
+                src={assetUrl('/manus-storage/logo-stamp.webp')}
                 alt="农耕文明"
                 className="w-full h-full object-contain drop-shadow-sm"
                 onError={(event) => {

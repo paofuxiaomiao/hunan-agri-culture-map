@@ -9,28 +9,29 @@ interface BottomModulesProps {
 
 // AI-generated refined timeline icons
 const timelineIcons: Record<string, string> = {
-  't001': assetUrl('/manus-storage/timeline-icon-1-prehistoric_3379bb57.png'),
-  't002': assetUrl('/manus-storage/timeline-icon-2-neolithic_6e01d013.png'),
-  't003': assetUrl('/manus-storage/timeline-icon-3-bronze-age_c97c1161.png'),
-  't004': assetUrl('/manus-storage/timeline-icon-4-imperial_bdb2a1eb.png'),
-  't005': assetUrl('/manus-storage/timeline-icon-5-modern_d7285c54.png'),
-  't006': assetUrl('/manus-storage/timeline-icon-6-hybrid-rice_0e565d92.png'),
+  't001': assetUrl('/manus-storage/timeline-icon-1-prehistoric.webp'),
+  't002': assetUrl('/manus-storage/timeline-icon-2-neolithic.webp'),
+  't003': assetUrl('/manus-storage/timeline-icon-3-bronze-age.webp'),
+  't004': assetUrl('/manus-storage/timeline-icon-4-imperial.webp'),
+  't005': assetUrl('/manus-storage/timeline-icon-5-modern.webp'),
+  't006': assetUrl('/manus-storage/timeline-icon-6-hybrid-rice.webp'),
 };
 
 // AI-generated refined solar term icons
 const solarTermIcons: Record<string, string> = {
-  'st01': assetUrl('/manus-storage/solar-icon-lichun_4379b7d8.png'),
-  'st02': assetUrl('/manus-storage/solar-icon-yushui_5b2b120f.png'),
-  'st03': assetUrl('/manus-storage/solar-icon-jingzhe_6b23818f.png'),
-  'st04': assetUrl('/manus-storage/solar-icon-chunfen_a20b1b6b.png'),
-  'st05': assetUrl('/manus-storage/solar-icon-qingming_d73f8de0.png'),
-  'st06': assetUrl('/manus-storage/solar-icon-guyu_c87e62a3.png'),
-  'st07': assetUrl('/manus-storage/solar-icon-lixia_dc7035cc.png'),
-  'st08': assetUrl('/manus-storage/solar-icon-xiaoman_34e4cc05.png'),
+  'st01': assetUrl('/manus-storage/solar-icon-lichun.webp'),
+  'st02': assetUrl('/manus-storage/solar-icon-yushui.webp'),
+  'st03': assetUrl('/manus-storage/solar-icon-jingzhe.webp'),
+  'st04': assetUrl('/manus-storage/solar-icon-chunfen.webp'),
+  'st05': assetUrl('/manus-storage/solar-icon-qingming.webp'),
+  'st06': assetUrl('/manus-storage/solar-icon-guyu.webp'),
+  'st07': assetUrl('/manus-storage/solar-icon-lixia.webp'),
+  'st08': assetUrl('/manus-storage/solar-icon-xiaoman.webp'),
 };
 
 // Rice icon for headlines
-const RICE_ICON = assetUrl('/manus-storage/rice-icon-headline_5ef18957.png');
+const RICE_ICON = assetUrl('/manus-storage/rice-icon-headline.webp');
+const BOTTOM_FIELD_DECOR = assetUrl('/manus-storage/bottom-field-decor.webp');
 
 function swapToFallbackImage(event: { currentTarget: HTMLImageElement }, fallback: string | undefined) {
   if (!fallback) {
@@ -44,14 +45,19 @@ function swapToFallbackImage(event: { currentTarget: HTMLImageElement }, fallbac
 export default function BottomModules({ onNavigate, onPointSelect }: BottomModulesProps) {
   return (
     <div
-      className="w-full flex-shrink-0 bottom-modules-shell relative overflow-hidden"
-      style={{
-        '--xiangxi-pattern': `url("${assetUrl('/manus-storage/xiangxi-brocade-pattern.png')}")`,
-      } as React.CSSProperties}
+      className="w-full flex-shrink-0 relative overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #faf8f2 0%, #f0e8d4 100%)' }}
     >
       <div className="gold-thread" />
-      <div className="bottom-cultural-pattern" />
-      <div className="bottom-paper-grain" />
+
+      <div className="absolute inset-0 pointer-events-none">
+        <img
+          src={BOTTOM_FIELD_DECOR}
+          alt=""
+          className="absolute bottom-0 left-0 w-full h-[130%] object-cover opacity-[0.32]"
+          style={{ mixBlendMode: 'multiply', objectPosition: 'center 70%' }}
+        />
+      </div>
 
       <div className="grid grid-cols-12 gap-0 relative z-10" style={{ height: '175px' }}>
         
