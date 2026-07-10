@@ -16,6 +16,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 export default function Home() {
   const [activeNav, setActiveNav] = useState('map');
   const [selectedPoint, setSelectedPoint] = useState<CulturePoint | null>(culturePoints[0]);
+  const [focusRequest, setFocusRequest] = useState<{ pointId: string; nonce: number } | null>(null);
   const [visibleLayers, setVisibleLayers] = useState({
     ancient: true,
     modern: true,
@@ -30,9 +31,14 @@ export default function Home() {
     setVisibleLayers(prev => ({ ...prev, [layer]: !prev[layer] }));
   }, []);
 
-  const handlePointSelect = useCallback((point: CulturePoint) => {
+  const focusPoint = useCallback((point: CulturePoint) => {
     setSelectedPoint(point);
+    setFocusRequest(prev => ({ pointId: point.id, nonce: (prev?.nonce ?? 0) + 1 }));
   }, []);
+
+  const handlePointSelect = useCallback((point: CulturePoint) => {
+    focusPoint(point);
+  }, [focusPoint]);
 
   const handleSearch = useCallback((query: string) => {
     if (!query.trim()) return;
@@ -40,12 +46,13 @@ export default function Home() {
       p.name.includes(query) || p.tags.some(t => t.includes(query))
     );
     if (found) {
-      setSelectedPoint(found);
       setVisibleLayers(prev => ({ ...prev, [found.category]: true }));
+      setActiveNav('map');
+      focusPoint(found);
     } else {
       toast('未找到匹配的点位', { description: '请尝试其他关键词' });
     }
-  }, []);
+  }, [focusPoint]);
 
   const handleClear = useCallback(() => {
     setVisibleLayers({ ancient: true, modern: true, red: true });
@@ -56,15 +63,15 @@ export default function Home() {
     if (!selectedPoint) return;
     const currentIndex = filteredPoints.findIndex(p => p.id === selectedPoint.id);
     const prevIndex = currentIndex > 0 ? currentIndex - 1 : filteredPoints.length - 1;
-    setSelectedPoint(filteredPoints[prevIndex]);
-  }, [selectedPoint, filteredPoints]);
+    focusPoint(filteredPoints[prevIndex]);
+  }, [selectedPoint, filteredPoints, focusPoint]);
 
   const handleNextPoint = useCallback(() => {
     if (!selectedPoint) return;
     const currentIndex = filteredPoints.findIndex(p => p.id === selectedPoint.id);
     const nextIndex = currentIndex < filteredPoints.length - 1 ? currentIndex + 1 : 0;
-    setSelectedPoint(filteredPoints[nextIndex]);
-  }, [selectedPoint, filteredPoints]);
+    focusPoint(filteredPoints[nextIndex]);
+  }, [selectedPoint, filteredPoints, focusPoint]);
 
   const handleNavChange = useCallback((nav: string) => {
     setActiveNav(nav);
@@ -79,9 +86,9 @@ export default function Home() {
     if (point) {
       setVisibleLayers(prev => ({ ...prev, [point.category]: true }));
       setActiveNav('map');
-      setSelectedPoint(point);
+      focusPoint(point);
     }
-  }, []);
+  }, [focusPoint]);
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -102,10 +109,11 @@ export default function Home() {
             className="flex-1 flex flex-col min-h-0 overflow-hidden"
           >
             {/* Main map area */}
-            <main className="relative flex-1 min-h-0">
+            <main className="relative flex-1 min-h-0 overflow-hidden">
               <HunanMap
                 points={filteredPoints}
                 selectedPoint={selectedPoint}
+                focusRequest={focusRequest}
                 onPointSelect={handlePointSelect}
                 visibleLayers={visibleLayers}
               />

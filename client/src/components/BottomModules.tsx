@@ -17,16 +17,15 @@ const timelineIcons: Record<string, string> = {
   't006': assetUrl('/manus-storage/timeline-icon-6-hybrid-rice.webp'),
 };
 
-// AI-generated refined solar term icons
 const solarTermIcons: Record<string, string> = {
-  'st01': assetUrl('/manus-storage/solar-icon-lichun.webp'),
-  'st02': assetUrl('/manus-storage/solar-icon-yushui.webp'),
-  'st03': assetUrl('/manus-storage/solar-icon-jingzhe.webp'),
-  'st04': assetUrl('/manus-storage/solar-icon-chunfen.webp'),
-  'st05': assetUrl('/manus-storage/solar-icon-qingming.webp'),
-  'st06': assetUrl('/manus-storage/solar-icon-guyu.webp'),
-  'st07': assetUrl('/manus-storage/solar-icon-lixia.webp'),
-  'st08': assetUrl('/manus-storage/solar-icon-xiaoman.webp'),
+  'st01': assetUrl('/manus-storage/solar-terms/st-lichun.webp'),
+  'st02': assetUrl('/manus-storage/solar-terms/st-yushui.webp'),
+  'st03': assetUrl('/manus-storage/solar-terms/st-jingzhe.webp'),
+  'st04': assetUrl('/manus-storage/solar-terms/st-chunfen.webp'),
+  'st05': assetUrl('/manus-storage/solar-terms/st-qingming.webp'),
+  'st06': assetUrl('/manus-storage/solar-terms/st-guyu.webp'),
+  'st07': assetUrl('/manus-storage/solar-terms/st-lixia.webp'),
+  'st08': assetUrl('/manus-storage/solar-terms/st-xiaoman.webp'),
 };
 
 // Rice icon for headlines
@@ -111,7 +110,7 @@ export default function BottomModules({ onNavigate, onPointSelect }: BottomModul
                   <img 
                     src={timelineIcons[event.id] || ''} 
                     alt={event.title}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                     onError={hideBrokenImage}
                   />
                 </div>
@@ -141,7 +140,7 @@ export default function BottomModules({ onNavigate, onPointSelect }: BottomModul
                   <img 
                     src={solarTermIcons[term.id] || ''} 
                     alt={term.name}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 h-full w-full object-contain p-1"
                     onError={hideBrokenImage}
                   />
                 </div>

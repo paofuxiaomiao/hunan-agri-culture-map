@@ -8,6 +8,7 @@ import { Plus, Minus, Locate, Layers } from 'lucide-react';
 interface HunanMapProps {
   points: CulturePoint[];
   selectedPoint: CulturePoint | null;
+  focusRequest: { pointId: string; nonce: number } | null;
   onPointSelect: (point: CulturePoint) => void;
   visibleLayers: { ancient: boolean; modern: boolean; red: boolean };
 }
@@ -27,12 +28,11 @@ const categoryColors: Record<string, string> = {
   red: '#C41E3A',
 };
 
-export default function HunanMap({ points, selectedPoint, onPointSelect, visibleLayers }: HunanMapProps) {
+export default function HunanMap({ points, selectedPoint, focusRequest, onPointSelect, visibleLayers }: HunanMapProps) {
   const mapRef = useRef<L.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
   const [mapReady, setMapReady] = useState(false);
-  const isFirstRender = useRef(true);
 
   // Stable callback ref
   const onPointSelectRef = useRef(onPointSelect);
@@ -202,18 +202,22 @@ export default function HunanMap({ points, selectedPoint, onPointSelect, visible
     });
   }, [points, selectedPoint, mapReady]);
 
-  // Fly to selected point
+  // Fly on every explicit focus request, including repeated clicks and remounts.
   useEffect(() => {
-    if (!mapRef.current || !selectedPoint) return;
-    // Skip flyTo on first render (initial default selection)
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    mapRef.current.flyTo([selectedPoint.latitude, selectedPoint.longitude], 11, {
-      duration: 1.2,
-    });
-  }, [selectedPoint]);
+    if (!mapRef.current || !mapReady || !focusRequest) return;
+    const point = points.find(item => item.id === focusRequest.pointId);
+    if (!point) return;
+
+    const map = mapRef.current;
+    const zoom = 10.8;
+    map.invalidateSize();
+    map.stop();
+
+    // Shift the center slightly east so the marker remains visible beside the detail card.
+    const markerPoint = map.project([point.latitude, point.longitude], zoom);
+    const visualCenter = map.unproject(markerPoint.add([72, 0]), zoom);
+    map.flyTo(visualCenter, zoom, { duration: 0.9, easeLinearity: 0.2 });
+  }, [focusRequest, mapReady, points]);
 
   const handleZoomIn = () => mapRef.current?.zoomIn();
   const handleZoomOut = () => mapRef.current?.zoomOut();

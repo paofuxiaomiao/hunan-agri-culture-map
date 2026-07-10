@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CalendarDays, Sprout, X } from 'lucide-react';
+import { assetUrl, hideBrokenImage } from '@/lib/assets';
 
 // 二十四节气完整数据
 const solarTermsData = [
@@ -30,13 +31,33 @@ const solarTermsData = [
   { id: 's24', name: '大寒', pinyin: 'Dàhán', season: 'winter', month: '1月20-21日', meaning: '一年最冷', farming: '备种选种，迎接新春', description: '大寒是冬季最后一个节气。农民开始选购优良稻种，为新一年的春耕做最后准备。"大寒不寒，春分不暖"，农谚中蕴含着千年的气象智慧。' },
 ];
 
+const termImageNames = [
+  'lichun', 'yushui', 'jingzhe', 'chunfen', 'qingming', 'guyu',
+  'lixia', 'xiaoman', 'mangzhong', 'xiazhi', 'xiaoshu', 'dashu',
+  'liqiu', 'chushu', 'bailu', 'qiufen', 'hanlu', 'shuangjiang',
+  'lidong', 'xiaoxue', 'daxue', 'dongzhi', 'xiaohan', 'dahan',
+];
+
+const solarTerms = solarTermsData.map((term, index) => ({
+  ...term,
+  image: assetUrl(`/manus-storage/solar-terms/st-${termImageNames[index]}.webp`),
+  order: index + 1,
+}));
+
+const seasonMeta: Record<string, { label: string; color: string; wash: string; line: string }> = {
+  spring: { label: '春生', color: '#4f7558', wash: '#e9f0e7', line: '#b9cbb7' },
+  summer: { label: '夏长', color: '#a56e16', wash: '#f7edcf', line: '#dfca8e' },
+  autumn: { label: '秋收', color: '#b7652e', wash: '#f5e5d6', line: '#dfb08e' },
+  winter: { label: '冬藏', color: '#607384', wash: '#e5ebee', line: '#b4c0c8' },
+};
+
 interface SolarTermsPageProps {
   onBack: () => void;
 }
 
 export default function SolarTermsPage({ onBack }: SolarTermsPageProps) {
   const [activeSeason, setActiveSeason] = useState('all');
-  const [selectedTerm, setSelectedTerm] = useState<typeof solarTermsData[0] | null>(null);
+  const [selectedTerm, setSelectedTerm] = useState<typeof solarTerms[0] | null>(null);
 
   const seasons = [
     { id: 'all', label: '全部节气', color: '#8B6914' },
@@ -47,26 +68,11 @@ export default function SolarTermsPage({ onBack }: SolarTermsPageProps) {
   ];
 
   const filteredTerms = activeSeason === 'all'
-    ? solarTermsData
-    : solarTermsData.filter(t => t.season === activeSeason);
-
-  const getSeasonColor = (season: string) => {
-    const colors: Record<string, string> = { spring: '#4A7C59', summer: '#B8860B', autumn: '#C67D2A', winter: '#6B7B8D' };
-    return colors[season] || '#8B6914';
-  };
-
-  const getSeasonBg = (season: string) => {
-    const bgs: Record<string, string> = {
-      spring: 'rgba(74,124,89,0.06)',
-      summer: 'rgba(184,134,11,0.06)',
-      autumn: 'rgba(198,125,42,0.06)',
-      winter: 'rgba(107,123,141,0.06)',
-    };
-    return bgs[season] || 'rgba(139,105,20,0.06)';
-  };
+    ? solarTerms
+    : solarTerms.filter(t => t.season === activeSeason);
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #faf8f2 0%, #f3ede3 100%)' }}>
+    <div className="min-h-screen text-[#3d3324]" style={{ background: 'linear-gradient(180deg, #fbf9f3 0%, #f1eadc 100%)' }}>
       {/* Header */}
       <div className="sticky top-0 z-50 backdrop-blur-xl border-b border-gold/15" style={{ background: 'rgba(250,248,242,0.92)' }}>
         <div className="max-w-[1400px] mx-auto px-6 py-3 flex items-center justify-between">
@@ -82,28 +88,32 @@ export default function SolarTermsPage({ onBack }: SolarTermsPageProps) {
       </div>
 
       {/* Hero */}
-      <div className="py-10 px-6 text-center">
+      <section className="relative overflow-hidden px-6 pb-10 pt-12 text-center">
+        <img src={assetUrl('/manus-storage/solar-terms/rice-branch-decor.webp')} alt="" className="pointer-events-none absolute -left-16 -top-20 w-72 -rotate-12 opacity-[0.14] mix-blend-multiply" />
+        <img src={assetUrl('/manus-storage/solar-terms/tea-leaf-decor.webp')} alt="" className="pointer-events-none absolute -right-16 -top-24 w-72 rotate-12 opacity-[0.12] mix-blend-multiply" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-xs tracking-[0.3em] text-gold-dark/70 uppercase mb-2">SOLAR TERMS CALENDAR</p>
-          <h2 className="text-3xl font-bold font-serif mb-3" style={{ color: '#2a1f08' }}>二十四节气与农事</h2>
-          <p className="text-sm text-earth/70 max-w-xl mx-auto leading-relaxed">
-            天人合一的农耕智慧，千年传承的时令密码
-          </p>
+          <p className="mb-3 text-[11px] tracking-[0.36em] text-[#96752d]">SOLAR TERMS · HUNAN</p>
+          <h2 className="mb-3 font-serif text-4xl font-bold tracking-[0.12em] text-[#2d260f]">二十四节气与农事</h2>
+          <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#71644e]">循四时物候，见三湘耕作。以植物标本串联湖南一年中的播种、生长、收获与冬藏。</p>
+          <div className="mx-auto mt-6 flex w-fit items-center gap-3 rounded-full border border-[#b99a50]/25 bg-white/55 px-4 py-2 text-[11px] text-[#77674a] shadow-sm backdrop-blur">
+            <CalendarDays size={14} className="text-[#9c7624]" />
+            <span>24 节气</span><span className="h-3 w-px bg-[#c9b993]" /><span>4 个农时阶段</span>
+          </div>
         </motion.div>
-      </div>
+      </section>
 
       {/* Season Filter */}
       <div className="max-w-[1400px] mx-auto px-6 mb-6">
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           {seasons.map(s => (
             <button
               key={s.id}
               onClick={() => setActiveSeason(s.id)}
-              className={`px-5 py-2 rounded-full text-xs font-medium transition-all duration-200 ${
+              className={`rounded-full px-5 py-2 text-xs font-medium transition-all duration-200 ${
                 activeSeason === s.id
                   ? 'text-white shadow-md'
                   : 'bg-white/60 text-earth/70 hover:bg-white border border-gold/10'
@@ -117,51 +127,44 @@ export default function SolarTermsPage({ onBack }: SolarTermsPageProps) {
       </div>
 
       {/* Solar Terms Grid */}
-      <div className="max-w-[1400px] mx-auto px-6 pb-12">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <main className="mx-auto max-w-[1400px] px-6 pb-16">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
           <AnimatePresence mode="popLayout">
             {filteredTerms.map((term, idx) => (
-              <motion.div
+              <motion.button
+                type="button"
                 key={term.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3, delay: idx * 0.03 }}
-                className="group cursor-pointer"
+                className="group text-left"
                 onClick={() => setSelectedTerm(term)}
+                aria-label={`查看${term.name}节气详情`}
               >
                 <div
-                  className="relative rounded-xl p-4 border border-gold/10 hover:border-gold/25 hover:shadow-lg transition-all duration-300 text-center overflow-hidden"
-                  style={{ background: getSeasonBg(term.season) }}
+                  className="relative h-full overflow-hidden rounded-[18px] border bg-white/70 shadow-[0_5px_18px_rgba(79,60,28,0.06)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_14px_34px_rgba(79,60,28,0.14)]"
+                  style={{ borderColor: seasonMeta[term.season].line }}
                 >
-                  {/* Decorative circle */}
-                  <div className="relative mx-auto w-16 h-16 mb-3">
-                    <div className="absolute inset-0 rounded-full opacity-20 group-hover:opacity-40 transition-opacity" style={{ background: `radial-gradient(circle, ${getSeasonColor(term.season)} 0%, transparent 70%)` }} />
-                    <div className="absolute inset-2 rounded-full border-2 border-dashed group-hover:rotate-45 transition-transform duration-700" style={{ borderColor: `${getSeasonColor(term.season)}40` }} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-xl font-bold font-serif" style={{ color: getSeasonColor(term.season) }}>
-                        {term.name.charAt(0)}
-                      </span>
-                    </div>
+                  <div className="relative h-44 overflow-hidden" style={{ background: `radial-gradient(circle at 50% 45%, #fff 0%, ${seasonMeta[term.season].wash} 78%)` }}>
+                    <span className="absolute left-3 top-3 z-10 rounded-full bg-white/75 px-2 py-1 text-[9px] font-semibold tracking-widest backdrop-blur" style={{ color: seasonMeta[term.season].color }}>{seasonMeta[term.season].label}</span>
+                    <span className="absolute right-3 top-3 z-10 font-serif text-[10px] text-[#8d8069]">{String(term.order).padStart(2, '0')}</span>
+                    <img src={term.image} alt={`${term.name}物候植物插画`} loading="lazy" className="h-full w-full scale-[1.08] object-contain px-3 pt-3 transition-transform duration-700 group-hover:scale-[1.15]" onError={hideBrokenImage} />
                   </div>
-
-                  <h4 className="text-sm font-bold font-serif mb-0.5" style={{ color: getSeasonColor(term.season) }}>
-                    {term.name}
-                  </h4>
-                  <p className="text-[10px] text-muted-foreground italic mb-1">{term.pinyin}</p>
-                  <p className="text-[10px] text-earth/60">{term.month}</p>
-
-                  {/* Hover reveal */}
-                  <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="text-[10px] font-medium" style={{ color: getSeasonColor(term.season) }}>{term.farming}</p>
+                  <div className="border-t border-[#d9ccb0]/55 px-4 py-3.5">
+                    <div className="flex items-end justify-between gap-2">
+                      <h3 className="font-serif text-lg font-bold tracking-[0.12em]" style={{ color: seasonMeta[term.season].color }}>{term.name}</h3>
+                      <span className="pb-0.5 text-[10px] text-[#80745f]">{term.month}</span>
+                    </div>
+                    <p className="mt-2 flex items-center gap-1.5 truncate text-[10px] text-[#756850]"><Sprout size={11} style={{ color: seasonMeta[term.season].color }} />{term.farming}</p>
                   </div>
                 </div>
-              </motion.div>
+              </motion.button>
             ))}
           </AnimatePresence>
         </div>
-      </div>
+      </main>
 
       {/* Detail Modal */}
       <AnimatePresence>
@@ -170,7 +173,7 @@ export default function SolarTermsPage({ onBack }: SolarTermsPageProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8"
             onClick={() => setSelectedTerm(null)}
           >
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
@@ -179,42 +182,41 @@ export default function SolarTermsPage({ onBack }: SolarTermsPageProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-              className="relative w-full max-w-md bg-white rounded-2xl overflow-hidden shadow-2xl"
+              className="relative grid max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-[24px] bg-[#fbf8f0] shadow-2xl md:grid-cols-[0.9fr_1.1fr]"
               onClick={e => e.stopPropagation()}
             >
-              {/* Color bar */}
-              <div className="h-2" style={{ background: getSeasonColor(selectedTerm.season) }} />
+              <div className="relative min-h-[300px] overflow-hidden md:min-h-[560px]" style={{ background: `radial-gradient(circle at 50% 45%, #fff 0%, ${seasonMeta[selectedTerm.season].wash} 80%)` }}>
+                <span className="absolute left-5 top-5 z-10 rounded-full bg-white/75 px-3 py-1 text-[10px] font-semibold tracking-widest" style={{ color: seasonMeta[selectedTerm.season].color }}>{seasonMeta[selectedTerm.season].label} · 第 {selectedTerm.order} 节气</span>
+                <img src={selectedTerm.image} alt={`${selectedTerm.name}物候植物插画`} className="absolute inset-0 h-full w-full object-contain p-7 pt-14" onError={hideBrokenImage} />
+              </div>
 
-              <div className="p-6">
+              <div className="relative p-7 md:p-9">
                 {/* Close */}
                 <button
                   onClick={() => setSelectedTerm(null)}
-                  className="absolute top-4 right-4 w-7 h-7 rounded-full bg-muted/50 flex items-center justify-center hover:bg-muted transition-colors text-xs"
+                  className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-[#cbbd9e]/50 bg-white/70 text-[#6f634e] transition-colors hover:bg-white"
+                  aria-label="关闭节气详情"
                 >
-                  ✕
+                  <X size={16} />
                 </button>
 
                 {/* Header */}
-                <div className="text-center mb-5">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-3" style={{ background: `${getSeasonColor(selectedTerm.season)}10`, border: `2px solid ${getSeasonColor(selectedTerm.season)}30` }}>
-                    <span className="text-3xl font-bold font-serif" style={{ color: getSeasonColor(selectedTerm.season) }}>
-                      {selectedTerm.name}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground italic">{selectedTerm.pinyin} · {selectedTerm.month}</p>
-                  <p className="text-sm font-medium mt-1" style={{ color: getSeasonColor(selectedTerm.season) }}>{selectedTerm.meaning}</p>
+                <div className="mb-7 pr-10">
+                  <p className="mb-2 text-[10px] tracking-[0.22em] text-[#9a8762]">{selectedTerm.pinyin.toUpperCase()}</p>
+                  <h3 className="font-serif text-4xl font-bold tracking-[0.16em]" style={{ color: seasonMeta[selectedTerm.season].color }}>{selectedTerm.name}</h3>
+                  <p className="mt-3 text-sm text-[#71644d]">{selectedTerm.month} · {selectedTerm.meaning}</p>
                 </div>
 
                 {/* Description */}
                 <div className="space-y-4">
                   <div>
-                    <h4 className="text-xs font-bold text-earth mb-1.5 tracking-wider">节气释义</h4>
-                    <p className="text-sm text-earth/80 leading-[1.8]">{selectedTerm.description}</p>
+                    <h4 className="mb-2 text-xs font-bold tracking-[0.18em] text-[#4d422f]">节气释义</h4>
+                    <p className="text-sm leading-[1.9] text-[#655945]">{selectedTerm.description}</p>
                   </div>
 
-                  <div className="p-3 rounded-lg" style={{ background: getSeasonBg(selectedTerm.season) }}>
-                    <h4 className="text-xs font-bold mb-1" style={{ color: getSeasonColor(selectedTerm.season) }}>农事活动</h4>
-                    <p className="text-sm text-earth/80">{selectedTerm.farming}</p>
+                  <div className="rounded-xl border p-4" style={{ background: seasonMeta[selectedTerm.season].wash, borderColor: seasonMeta[selectedTerm.season].line }}>
+                    <h4 className="mb-1.5 flex items-center gap-2 text-xs font-bold" style={{ color: seasonMeta[selectedTerm.season].color }}><Sprout size={14} />湖南农事</h4>
+                    <p className="text-sm text-[#615743]">{selectedTerm.farming}</p>
                   </div>
                 </div>
               </div>

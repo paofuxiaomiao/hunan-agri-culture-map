@@ -30,7 +30,7 @@ export default function LayerPanel({ visibleLayers, onLayerToggle, onSearch, onC
   }
 
   return (
-    <div className="absolute top-4 left-14 z-[1001] w-[258px] glass-panel rounded-lg overflow-hidden animate-in slide-in-from-left-4 duration-300">
+    <div className="absolute top-4 left-14 z-[1001] max-h-[calc(100%-2rem)] w-[258px] glass-panel rounded-lg overflow-x-hidden overflow-y-auto animate-in slide-in-from-left-4 duration-300">
       {/* Panel header */}
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold/10">
         <div className="flex items-center gap-2">
